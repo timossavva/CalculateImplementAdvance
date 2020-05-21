@@ -2,7 +2,6 @@ package branches;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import primary_accounts.PrimaryAccountBranch;
 import products.BranchProduct;
 import products.Product;
 import stores.Store;
@@ -24,7 +23,6 @@ public class Branch {
     private String phoneNumber;
     private Store store;
     private Set<BranchProduct> branchProducts;
-//    private Set<PrimaryAccountBranch> primaryAccountBranchSet;
 
     public Branch() {
     }
@@ -112,12 +110,12 @@ public class Branch {
         this.store = store;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "branch")
-    public Set<BranchProduct> getStoreProducts() {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "branch")
+    public Set<BranchProduct> getBranchProducts() {
         return branchProducts;
     }
 
-    public void setStoreProducts(Set<BranchProduct> storeProducts) {
+    public void setBranchProducts(Set<BranchProduct> storeProducts) {
         this.branchProducts = storeProducts;
     }
 //
@@ -145,4 +143,25 @@ public class Branch {
         session.getTransaction().commit();
         session.close();
     }
+
+    public void updateQuantityOfProduct(Product product, int quantity) {
+
+//        System.out.println();
+//        for (BranchProduct branchProduct : branchProducts) {
+//            if (branchProduct.getProduct().equals(product)) {
+//                branchProduct.setQuantity(branchProduct.getQuantity() + quantity);
+//            }
+//        }
+//        this.setBranchProducts(branchProducts);
+//
+//        HibernateUtil hibernateUtil = new HibernateUtil();
+//        SessionFactory sessionFactory = hibernateUtil.setUp();
+//        Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        session.update(this);
+//        session.getTransaction().commit();
+//        session.close();
+    }
+
+
 }

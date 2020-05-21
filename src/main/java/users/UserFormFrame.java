@@ -2,6 +2,7 @@ package users;
 
 import branches.Branch;
 import branches.BranchList;
+import notifications.NotificationIndicator;
 import stores.Store;
 import stores.StoreList;
 

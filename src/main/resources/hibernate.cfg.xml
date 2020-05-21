@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
         <property name="hibernate.connection.url">jdbc:sqlite:E:/Projects/Programming/Java/CalculateImplementAdvance/src/main/resources/db.sqlite3</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
 
         <!-- MySQL-->
         <!--        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>

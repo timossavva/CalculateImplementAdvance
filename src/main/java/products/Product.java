@@ -1,7 +1,6 @@
 package products;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 @Entity
@@ -11,8 +10,6 @@ public class Product {
     private String name;
     private String code;
     private Double price;
-//    private Set<BranchProduct> branchProducts;
-
 
     public Product() {
     }
@@ -66,4 +63,15 @@ public class Product {
 //    public void setBranchProducts(Set<BranchProduct> storeProducts) {
 //        this.branchProducts = storeProducts;
 //    }
+
+    public boolean equals(Object otherObject) {
+        if (otherObject == null) {
+            return false;
+        } else if (getClass() != otherObject.getClass()) {
+            return false;
+        } else {
+            Product otherProduct = (Product) otherObject;
+            return id == otherProduct.id;
+        }
+    }
 }

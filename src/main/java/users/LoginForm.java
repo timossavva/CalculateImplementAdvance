@@ -111,9 +111,9 @@ public class LoginForm extends JFrame {
         public void actionPerformed(ActionEvent e) {
             String pass = String.valueOf(passwordField.getPassword());
             String username = nameField.getText();
-            int outcome = userList.checkData(username, pass);
-            if (outcome == 0) {
-                userList.openCorrespondingUI();
+            User user = userList.checkData(username, pass);
+            if (user != null) {
+                userList.openCorrespondingUI(user);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Λάθος κωδικός ή όνομα χρήστη!");

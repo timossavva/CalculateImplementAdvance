@@ -24,30 +24,24 @@ public class UserList {
         return userList;
     }
 
-    public int checkData(String u, String p) {
+    public User checkData(String u, String p) {
         int outcome, pos = -2;
 
         for (User user : userList) {
             outcome = user.isUser(u, p);
             if (outcome == 0) {
-                pos = 0;
                 accountType = user.getType();
-                break;
-            } else if (outcome == -1) {
-                pos = -1;
-                break;
-            } else {
-                pos = -2;
+                return user;
             }
         }
-        return pos;
+        return null;
     }
 
     public String getAccountType() {
         return accountType;
     }
 
-    public void openCorrespondingUI() {
+    public void openCorrespondingUI(User user) {
         String[] accountTypes = AccountType.getAccountTypes();
         if (accountTypes[0].equals(accountType)) {
             new AdministrativeFrame();
@@ -60,7 +54,7 @@ public class UserList {
         } else if (accountTypes[4].equals(accountType)) {
 
         } else if (accountTypes[5].equals(accountType)) {
-
+            new StoreKeeperFrame(user.getBranch());
         }
     }
 
