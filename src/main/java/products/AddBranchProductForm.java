@@ -2,7 +2,6 @@ package products;
 
 import branches.Branch;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 
 import javax.swing.*;
@@ -15,11 +14,11 @@ public class AddBranchProductForm extends JFrame {
     private final JButton addButton;
     private JTextField[] quantityTextFields;
     private ArrayList<Product> allProducts;
-    private final Branch userBranch;
+    private final Branch branchOfUser;
 
-    public AddBranchProductForm(Branch userBranch) {
+    public AddBranchProductForm(Branch branchOfUser) {
 
-        this.userBranch = userBranch;
+        this.branchOfUser = branchOfUser;
         setTitle("JScrollablePanel Test");
         setLayout(new BorderLayout());
         JPanel panel = createPanel();
@@ -104,7 +103,7 @@ public class AddBranchProductForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                /* Validate all fields to be integers */
+                /* Check if all fields are integers */
                 boolean validationPassed = true;
                 for (JTextField field : quantityTextFields) {
                     try {
@@ -112,7 +111,7 @@ public class AddBranchProductForm extends JFrame {
                     } catch (java.lang.NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Λάθος Καταχωρήσεις. Εισάγετε Ακέραιες Ποσότητες Προϊόντων!");
                         validationPassed = false;
-                        new AddBranchProductForm(userBranch);
+                        new AddBranchProductForm(branchOfUser);
                         dispose();
                         break;
                     }
@@ -120,37 +119,37 @@ public class AddBranchProductForm extends JFrame {
 
 
                 if (validationPassed) {
-                    Set<BranchProduct> branchProductList = userBranch.getBranchProducts();
 
+                    /* Update the branch's products quantity for existing products */
+                    Set<BranchProduct> branchProducts = branchOfUser.getBranchProducts();
                     for (int i = 0; i < quantityTextFields.length; i++) {
-                        boolean found = false;
-                        for (BranchProduct branchProduct : branchProductList) {
+                        boolean exists = false;
+                        for (BranchProduct branchProduct : branchProducts) {
                             if (branchProduct.getProduct().equals(allProducts.get(i))) {
                                 branchProduct.setQuantity(branchProduct.getQuantity() + Integer.parseInt(quantityTextFields[i].getText()));
-                                found = true;
-                                break;
+                                exists = true;
                             }
                         }
-                        if (!found) {
-                            BranchProduct newBranchProduct = new BranchProduct();
-                            newBranchProduct.setBranch(userBranch);
-                            newBranchProduct.setProduct(allProducts.get(i));
-                            newBranchProduct.setQuantity(Integer.parseInt(quantityTextFields[i].getText()));
-                            branchProductList.add(newBranchProduct);
+                        /* If the product doesn't exists, then create it with the selected quantity */
+                        if (!exists) {
+                            BranchProduct branchProduct = new BranchProduct();
+                            branchProduct.setBranch(branchOfUser);
+                            branchProduct.setProduct(allProducts.get(i));
+                            branchProduct.setQuantity(Integer.parseInt(quantityTextFields[i].getText()));
+                            branchProducts.add(branchProduct);
                         }
                     }
 
-                    userBranch.setBranchProducts(branchProductList);
-                    /* Save branchProducts of branch */
+                    /* Update the branch's storage */
+                    branchOfUser.setBranchProducts(branchProducts);
                     HibernateUtil hibernateUtil = new HibernateUtil();
-                    SessionFactory sessionFactory = hibernateUtil.setUp();
-                    Session session = sessionFactory.openSession();
-                    session.beginTransaction();
-                    session.save(userBranch);
+                    Session session = hibernateUtil.beginSessionTransaction();
+                    session.saveOrUpdate(branchOfUser);
                     session.getTransaction().commit();
                     session.close();
+                    hibernateUtil.shutdown();
 
-                    new ProductListFrame(userBranch);
+                    new ProductListFrame(branchOfUser);
                     dispose();
                 }
             }

@@ -111,7 +111,7 @@ public class LoginForm extends JFrame {
         public void actionPerformed(ActionEvent e) {
             String pass = String.valueOf(passwordField.getPassword());
             String username = nameField.getText();
-            User user = userList.checkData(username, pass);
+            User user = userList.validateCredentials(username, pass);
             if (user != null) {
                 userList.openCorrespondingUI(user);
                 dispose();

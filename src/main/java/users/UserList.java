@@ -1,35 +1,65 @@
 package users;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import utils.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserList {
-    public static SessionFactory sessionFactory;
-    public static Session session;
-    private final ArrayList<User> userList;
     private String accountType;
 
-    public UserList() {
-        HibernateUtil hibernateUtil = new HibernateUtil();
-        sessionFactory = hibernateUtil.setUp();
-        userList = getAllFromDb();
+    public boolean create(User user) {
+        if (!checkIfUsernameExists(user.getUsername())) {
+            HibernateUtil hibernateUtil = new HibernateUtil();
+            Session session = hibernateUtil.beginSessionTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+            session.close();
+            hibernateUtil.shutdown();
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<User> getUserList() {
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        ArrayList<User> userList = (ArrayList<User>) session.createQuery("from User").list();
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
         return userList;
     }
 
-    public User checkData(String u, String p) {
-        int outcome, pos = -2;
 
-        for (User user : userList) {
-            outcome = user.isUser(u, p);
-            if (outcome == 0) {
+    public void update(User user) {
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        session.update(user);
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
+    }
+
+    public void deleteUser(User user) {
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        session.delete(user);
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
+    }
+
+    public boolean checkIfUsernameExists(String username) {
+        for (User user : getUserList())
+            if (user.getUsername().equals(username))
+                return true;
+        return false;
+    }
+
+    public User validateCredentials(String u, String p) {
+        for (User user : getUserList()) {
+            if (user.exists(u, p)) {
                 accountType = user.getType();
                 return user;
             }
@@ -37,9 +67,6 @@ public class UserList {
         return null;
     }
 
-    public String getAccountType() {
-        return accountType;
-    }
 
     public void openCorrespondingUI(User user) {
         String[] accountTypes = AccountType.getAccountTypes();
@@ -56,74 +83,5 @@ public class UserList {
         } else if (accountTypes[5].equals(accountType)) {
             new StoreKeeperFrame(user.getBranch());
         }
-    }
-
-
-    public boolean create(User user) {
-        if (!checkIfUsernameExists(sessionFactory, user.getUsername())) {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            session.save(user);
-            session.getTransaction().commit();
-            session.close();
-            return true;
-        }
-        return false;
-    }
-
-    public void update(User user) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.update(user);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    public User getWithId(SessionFactory sessionFactory, long userId) {
-        session = sessionFactory.openSession();
-        User user = session.get(User.class, userId);
-        session.close();
-        return user;
-    }
-
-
-    private ArrayList<User> getAllFromDb() {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        ArrayList<User> result = (ArrayList<User>) session.createQuery("from User").list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
-    }
-
-
-    public List<User> search(String searchQuery) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from User U WHERE U.username LIKE :query");
-        query.setParameter("query", "%" + searchQuery + "%");
-        List<User> result = (List<User>) query.list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
-    }
-
-    public boolean checkIfUsernameExists(SessionFactory sessionFactory, String username) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from User U WHERE U.username = :username");
-        query.setParameter("username", username);
-        List<User> result = (List<User>) query.list();
-        session.getTransaction().commit();
-        session.close();
-        return result.size() > 0;
-    }
-
-    public void deleteUser(User user) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(user);
-        session.getTransaction().commit();
-        session.close();
     }
 }

@@ -84,19 +84,8 @@ public class User {
         this.branch = branch;
     }
 
-    public int isUser(String u, String p) {
-
-        int outcome; /* 0: correct login, -1: wrong pass, -2: user does exist */
-
-        if (username.equals(u) && password.equals(p)) {
-            outcome = 0;
-        } else if (username.equals(u)) {
-            outcome = -1;
-        } else {
-            outcome = -2;
-        }
-
-        return outcome;
+    public boolean exists(String u, String p) {
+        return username.equals(u) && password.equals(p);
     }
 
 

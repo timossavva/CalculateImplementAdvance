@@ -5,8 +5,11 @@ import org.hibernate.SessionFactory;
 import products.BranchProduct;
 import products.Product;
 import stores.Store;
+import users.User;
+import utils.HibernateUtil;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -146,21 +149,18 @@ public class Branch {
 
     public void updateQuantityOfProduct(Product product, int quantity) {
 
-//        System.out.println();
-//        for (BranchProduct branchProduct : branchProducts) {
-//            if (branchProduct.getProduct().equals(product)) {
-//                branchProduct.setQuantity(branchProduct.getQuantity() + quantity);
-//            }
-//        }
-//        this.setBranchProducts(branchProducts);
-//
-//        HibernateUtil hibernateUtil = new HibernateUtil();
-//        SessionFactory sessionFactory = hibernateUtil.setUp();
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//        session.update(this);
-//        session.getTransaction().commit();
-//        session.close();
+        for (BranchProduct branchProduct : branchProducts) {
+            if (branchProduct.getProduct().equals(product)) {
+                branchProduct.setQuantity(branchProduct.getQuantity() + quantity);
+            }
+        }
+
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        session.save(this);
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
     }
 
 

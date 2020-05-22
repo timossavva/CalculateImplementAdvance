@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 
 public class StoreKeeperFrame extends JFrame {
     private JPanel panel;
-    private JButton logoutbutton;
+    private JButton logoutButton;
     private JButton productListButton;
     private final Branch userBranch;
 
@@ -25,18 +25,18 @@ public class StoreKeeperFrame extends JFrame {
     }
 
     private void addButtonListeners() {
-        logoutbutton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                new LoginForm();
-                dispose();
-            }
-        });
-
         productListButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 new ProductListFrame(userBranch);
+                dispose();
+            }
+        });
+
+        logoutButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new LoginForm();
                 dispose();
             }
         });

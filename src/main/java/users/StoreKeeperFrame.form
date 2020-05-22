@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="5e8db" class="javax.swing.JButton" binding="logoutbutton">
+      <component id="5e8db" class="javax.swing.JButton" binding="logoutButton">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

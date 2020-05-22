@@ -2,7 +2,6 @@ package products;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import users.User;
 import utils.HibernateUtil;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class ProductList {
 
     public ProductList() {
         HibernateUtil hibernateUtil = new HibernateUtil();
-        sessionFactory = hibernateUtil.setUp();
+        sessionFactory = hibernateUtil.setUpSessionFactory();
         productList = getAllFromDb();
     }
 

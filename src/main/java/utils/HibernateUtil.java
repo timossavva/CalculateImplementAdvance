@@ -1,13 +1,22 @@
 package utils;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
+    private SessionFactory sessionFactory;
 
-    public SessionFactory setUp() {
+    public Session beginSessionTransaction() {
+        sessionFactory = setUpSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        return session;
+    }
+
+    public SessionFactory setUpSessionFactory() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
@@ -19,7 +28,7 @@ public class HibernateUtil {
         return null;
     }
 
-    public void shutdown(SessionFactory sessionFactory) {
+    public void shutdown() {
         sessionFactory.close();
     }
 
