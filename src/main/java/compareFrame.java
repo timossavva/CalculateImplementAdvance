@@ -11,4 +11,12 @@ public class compareFrame extends JFrame {
     private JComboBox comboBox4;
     private JTextField dateTextField1;
     private JTextField dateTextField2;
+
+    public compareFrame() {
+        this.setTitle("Σύγκριση πρωτογενών λογαριασμών");
+        this.setSize(600, 600);
+        this.setContentPane(panel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
 }
