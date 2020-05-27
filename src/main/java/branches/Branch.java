@@ -5,11 +5,9 @@ import org.hibernate.SessionFactory;
 import products.BranchProduct;
 import products.Product;
 import stores.Store;
-import users.User;
 import utils.HibernateUtil;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Set;
 
 

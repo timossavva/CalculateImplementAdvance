@@ -7,10 +7,32 @@ import java.util.ArrayList;
 
 public class BranchList {
 
-    public void create(Branch branch) {
+    public boolean create(Branch branch) {
+        if (!checkIfBranchExists(branch.getName())) {
+            HibernateUtil hibernateUtil = new HibernateUtil();
+            Session session = hibernateUtil.beginSessionTransaction();
+            session.save(branch);
+            session.getTransaction().commit();
+            session.close();
+            hibernateUtil.shutdown();
+            return true;
+        }
+        return false;
+    }
+
+    public void update(Branch branch) {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
-        session.save(branch);
+        session.update(branch);
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
+    }
+
+    public void deleteBranch(Branch branch) {
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        session.delete(branch);
         session.getTransaction().commit();
         session.close();
         hibernateUtil.shutdown();
@@ -36,5 +58,10 @@ public class BranchList {
         return null;
     }
 
-
+    public boolean checkIfBranchExists(String branchName) {
+        for (Branch branch : getBranchList())
+            if (branch.getName().equals(branchName))
+                return true;
+        return false;
+    }
 }

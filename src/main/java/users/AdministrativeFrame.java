@@ -1,6 +1,6 @@
 package users;
 
-import products.ProductListFrame;
+import branches.BranchListFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -34,7 +34,8 @@ public class AdministrativeFrame extends JFrame {
         storesButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                new BranchListFrame();
+                dispose();
             }
         });
 
