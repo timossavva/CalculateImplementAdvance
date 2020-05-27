@@ -128,7 +128,7 @@ public class BranchFormFrame extends JFrame {
         }
 
         private boolean validateFields() {
-            return !nameTextField.getText().equals("")/*&&!usernameTextField.getText().equals("") && !passwordTextField.getText().equals("")*/;
+            return !nameTextField.getText().equals("")&&!codeNameTextField.getText().equals("") && !stateTextField.getText().equals("") &&!cityTextField.getText().equals("") &&!addressTextField.getText().equals("") &&!postalCodeTextField.getText().equals("") &&!phoneNumbTextField.getText().equals("");
         }
 
 }
