@@ -8,10 +8,12 @@
 
         <!-- SQLite-->
         <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-        <!--TIMOS PATH-->
+        <!--        REPLACE THIS WITH YOUR PATH-->
         <property name="hibernate.connection.url">
             jdbc:sqlite:E:\Projects\Programming\Java\CalculateImplementAdvance\src\main\resources\db.sqlite3
         </property>
+        <!--TIMOS PATH-->
+        <!--        <property name="hibernate.connection.url">jdbc:sqlite:E:\Projects\Programming\Java\CalculateImplementAdvance\src\main\resources\db.sqlite3</property>-->
         <!--STAVROS PATH-->
         <!--        <property name="hibernate.connection.url">jdbc:sqlite:E:\Projects\Programming\Java\CalculateImplementAdvance\src\main\resources\db.sqlite3</property>-->
         <!--MIXALIS PATH-->
