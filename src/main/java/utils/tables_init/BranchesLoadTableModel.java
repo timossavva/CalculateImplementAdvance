@@ -12,7 +12,7 @@ public class BranchesLoadTableModel {
         public static DefaultTableModel loadTableBranches(ArrayList<Branch> BranchList) {
 
             String[] columns = new String[]{
-                    "Id", "Name", "Codename", "State", "City", "Address", "Postal Code", "Phone Number", "Store", "BranchProduct"
+                    "Name", "Codename", "State", "City", "Address", "Postal Code", "Phone Number", "Store"
             };
 
             // Create an empty table
@@ -22,38 +22,30 @@ public class BranchesLoadTableModel {
             for (int i = 0; i < data.length; i++) {
                 for (int j = 0; j < columns.length; j++) {
                     switch (j) {
-
                         case 0:
-                            data[i][j] = BranchList.get(i).getId();
-                            break;
-                        case 1:
                             data[i][j] = BranchList.get(i).getName();
                             break;
-                        case 2:
+                        case 1:
                             data[i][j] = BranchList.get(i).getCodeName();
                             break;
-                        case 3:
+                        case 2:
                             data[i][j] = BranchList.get(i).getState();
                             break;
-                        case 4:
+                        case 3:
                             data[i][j] = BranchList.get(i).getCity();
                             break;
-                        case 5:
+                        case 4:
                             data[i][j] = BranchList.get(i).getAddress();
                             break;
-                        case 6:
+                        case 5:
                             data[i][j] = BranchList.get(i).getPostalCode();
                             break;
-                        case 7:
+                        case 6:
                             data[i][j] = BranchList.get(i).getPhoneNumber();
                             break;
-                        case 8:
+                        case 7:
                             Store store = BranchList.get(i).getStore();
                             data[i][j] =store.getName();
-                            break;
-                        case 9:
-                            //Branch branch = userList.get(i).getBranch();
-                           // data[i][j] = branch == null ? "---" : branch.getName();
                             break;
                     }
                 }

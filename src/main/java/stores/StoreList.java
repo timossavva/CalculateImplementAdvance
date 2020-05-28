@@ -26,4 +26,12 @@ public class StoreList {
         return storeList;
     }
 
+    public String[] getStoreNames(ArrayList<Store> storeList) {
+        String[] storeNames = new String[storeList.size()];
+        for (int i = 0; i < storeList.size(); i++) {
+            storeNames[i] = storeList.get(i).getName();
+        }
+        return storeNames;
+    }
+
 }

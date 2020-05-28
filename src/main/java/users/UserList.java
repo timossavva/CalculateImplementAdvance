@@ -24,7 +24,7 @@ public class UserList {
     public ArrayList<User> getUserList() {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
-        ArrayList<User> userList = (ArrayList<User>) session.createQuery("from User").list();
+        ArrayList<User> userList = (ArrayList<User>) session.createQuery("from User ").list();
         session.getTransaction().commit();
         session.close();
         hibernateUtil.shutdown();

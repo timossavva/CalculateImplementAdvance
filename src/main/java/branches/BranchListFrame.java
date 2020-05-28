@@ -50,7 +50,7 @@ public class BranchListFrame extends JFrame {
     private void loadTable() {
         BranchList branchList = new BranchList();
         this.branchList = branchList.getBranchList();
-       BranchListTable.setModel(BranchesLoadTableModel.loadTableBranches(this.branchList));
+        BranchListTable.setModel(BranchesLoadTableModel.loadTableBranches(this.branchList));
     }
 
     private void setTableCLickListener() {
