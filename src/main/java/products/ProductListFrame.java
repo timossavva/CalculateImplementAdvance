@@ -66,7 +66,6 @@ public class ProductListFrame extends JFrame {
     private void loadTable() {
         this.branchProductList = branchOfUser.getBranchProducts();
         ArrayList<BranchProduct> branchProductsList = new ArrayList<>(branchProductList);
-        System.out.println(branchProductsList.get(0).getQuantity());
         table1.setModel(BranchProductsLoadTableModel.loadTableBranchProduct(this.branchProductList));
     }
 

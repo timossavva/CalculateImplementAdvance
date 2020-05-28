@@ -1,6 +1,8 @@
+package primary_accounts;
+
 import javax.swing.*;
 
-public class compareFrame extends JFrame {
+public class PrimaryAccountCompareFrame extends JFrame {
     private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JRadioButton radioButton1;
@@ -13,7 +15,7 @@ public class compareFrame extends JFrame {
     private JTextField dateTextField2;
     private JPanel panel;
 
-    public compareFrame() {
+    public PrimaryAccountCompareFrame() {
         this.setTitle("Σύγκριση πρωτογενών λογαριασμών");
         this.setSize(600, 600);
         this.setContentPane(panel);
