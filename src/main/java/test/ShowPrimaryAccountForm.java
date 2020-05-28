@@ -1,48 +1,47 @@
+package test;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-class ShowPrimaryAccountForm 
-{
+class ShowPrimaryAccountForm {
 
-private JFrame jfrm;
-private JButton jbtnComparePrimAccounts;
-private JPanel buttonPanel;
-	
-	ShowPrimaryAccountForm(ShowPrimaryAccountJPanel showPrimAccount) 
-	{
-		jfrm = new JFrame("Προβολή Πρωτογενή Λογαριασμού");
-		jfrm.setSize(600, 350);
-		jfrm.setResizable(false);
-		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		jfrm.add(showPrimAccount);
+    private final JFrame jfrm;
+    private final JButton jbtnComparePrimAccounts;
+    private final JPanel buttonPanel;
 
-		jbtnComparePrimAccounts = new JButton("Σύγκριση Πρωτογενών Λογαριασμών");
-		buttonPanel = new JPanel();
-		buttonPanel.add(jbtnComparePrimAccounts);
-		jfrm.add(buttonPanel, BorderLayout.SOUTH);
+    ShowPrimaryAccountForm(ShowPrimaryAccountJPanel showPrimAccount) {
+        jfrm = new JFrame("Προβολή Πρωτογενή Λογαριασμού");
+        jfrm.setSize(600, 350);
+        jfrm.setResizable(false);
+        jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		jfrm.setVisible(true);
+        jfrm.add(showPrimAccount);
 
-		// compareButton event...
-		jbtnComparePrimAccounts.addActionListener(new ActionListener(){  
-    			public void actionPerformed(ActionEvent e){  
-            					  
-    			}  
-    		});
-		
-	}
+        jbtnComparePrimAccounts = new JButton("Σύγκριση Πρωτογενών Λογαριασμών");
+        buttonPanel = new JPanel();
+        buttonPanel.add(jbtnComparePrimAccounts);
+        jfrm.add(buttonPanel, BorderLayout.SOUTH);
 
-	
+        jfrm.setVisible(true);
 
-	public static void main(String[] args) 
-	{
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new ShowPrimaryAccountForm(new ShowPrimaryAccountJPanel() );
-			}
-		});
-	}
-	
+        // compareButton event...
+        jbtnComparePrimAccounts.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+    }
+
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new ShowPrimaryAccountForm(new ShowPrimaryAccountJPanel());
+            }
+        });
+    }
+
 }
