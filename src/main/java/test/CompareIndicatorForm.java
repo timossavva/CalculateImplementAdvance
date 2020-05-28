@@ -3,12 +3,12 @@ package test;
 import javax.swing.*;
 import java.awt.*;
 
-class ComparePrimaryAccountsForm {
+class CompareIndicatorForm {
 
     private final JFrame jfrm;
 
-    ComparePrimaryAccountsForm(ShowPrimaryAccountJPanel showPrimAccount1, ShowPrimaryAccountJPanel showPrimAccount2) {
-        jfrm = new JFrame("Σύγκριση Πρωτογενών Λογαριασμών");
+    CompareIndicatorForm(ShowIndicatorJPanel showIndicator1, ShowIndicatorJPanel showIndicator2) {
+        jfrm = new JFrame("Σύγκριση Δεικτών");
         jfrm.setLayout(new GridLayout(1, 3));
         jfrm.setSize(700, 400);
         jfrm.setResizable(false);
@@ -18,8 +18,8 @@ class ComparePrimaryAccountsForm {
         JSeparator s = new JSeparator();
         s.setOrientation(SwingConstants.VERTICAL);
 
-        jfrm.add(showPrimAccount1);
-        jfrm.add(showPrimAccount2);
+        jfrm.add(showIndicator1);
+        jfrm.add(showIndicator2);
 
         jfrm.setVisible(true);
 
@@ -29,7 +29,7 @@ class ComparePrimaryAccountsForm {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new ComparePrimaryAccountsForm(new ShowPrimaryAccountJPanel(), new ShowPrimaryAccountJPanel());
+                new CompareIndicatorForm(new ShowIndicatorJPanel(), new ShowIndicatorJPanel());
             }
         });
     }

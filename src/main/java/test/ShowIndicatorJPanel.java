@@ -10,34 +10,34 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
+public class ShowIndicatorJPanel extends JPanel implements ActionListener {
     private final JButton jbtnOK;
     private final JRadioButton jrbStore;
     private final JRadioButton jrbBranch;
-    private final JLabel jlabSelectPrimaryAccount;
+    private final JLabel jlabSelectIndicator;
     private final JLabel jlabDate;
     private final JLabel jlabPrice;
     private final Border border;
-    private final JComboBox primaryAccountList;
+    private final JComboBox indicatortList;
     private final ButtonGroup buttonGroup;
     private final JPanel panel1;
     private final JPanel panel2;
     private final JPanel panel3;
     private final JPanel panel4;
-    private final String[] primaryAccountsTitles = new String[]{"aaaaaaaaaa", "bbbbbbbbb"};
+    private final String[] indicatorTitles = new String[]{"aaaaaaaaaa", "bbbbbbbbb"};
     private final String[] storeTitles = new String[]{"aaaaaaaaaaaaa", "bbbbbbbbbbbb"};
     private static final String euro = "\u20ac";
 
-    public ShowPrimaryAccountJPanel() {
+    public ShowIndicatorJPanel() {
         super(new GridLayout(4, 1));
 
-        jlabSelectPrimaryAccount = new JLabel("Επιλέξτε Πρωτογενή Λογαριασμό:");
-        primaryAccountList = new JComboBox<>(primaryAccountsTitles);
-        primaryAccountList.setPreferredSize(new Dimension(300, 30));
+        jlabSelectIndicator = new JLabel("Επιλέξτε Δείκτη:");
+        indicatortList = new JComboBox<>(indicatorTitles);
+        indicatortList.setPreferredSize(new Dimension(300, 30));
         panel1 = new JPanel();
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        panel1.add(jlabSelectPrimaryAccount);
-        panel1.add(primaryAccountList);
+        panel1.add(jlabSelectIndicator);
+        panel1.add(indicatortList);
 
 
         jrbStore = new JRadioButton("Εταιρία", false);
