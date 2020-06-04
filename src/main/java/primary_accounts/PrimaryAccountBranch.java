@@ -1,6 +1,7 @@
 package primary_accounts;
 
 import branches.Branch;
+import products.Product;
 
 import javax.persistence.*;
 

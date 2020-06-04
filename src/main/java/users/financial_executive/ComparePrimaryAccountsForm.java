@@ -1,4 +1,4 @@
-package test;
+package users.financial_executive;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,15 +23,6 @@ class ComparePrimaryAccountsForm {
 
         jfrm.setVisible(true);
 
-    }
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new ComparePrimaryAccountsForm(new ShowPrimaryAccountJPanel(), new ShowPrimaryAccountJPanel());
-            }
-        });
     }
 
 }

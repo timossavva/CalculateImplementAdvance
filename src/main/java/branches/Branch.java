@@ -2,6 +2,7 @@ package branches;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import primary_accounts.PrimaryAccountBranch;
 import products.BranchProduct;
 import products.Product;
 import stores.Store;
@@ -24,6 +25,7 @@ public class Branch {
     private String phoneNumber;
     private Store store;
     private Set<BranchProduct> branchProducts;
+    private Set<PrimaryAccountBranch> primaryAccountBranchHistory;
 
     public Branch() {
     }
@@ -119,15 +121,16 @@ public class Branch {
     public void setBranchProducts(Set<BranchProduct> storeProducts) {
         this.branchProducts = storeProducts;
     }
-//
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "branch")
-//    public Set<PrimaryAccountBranch> getPrimaryAccountBranchSet() {
-//        return primaryAccountBranchSet;
-//    }
-//
-//    public void setPrimaryAccountBranchSet(Set<PrimaryAccountBranch> primaryAccountBranchSet) {
-//        this.primaryAccountBranchSet = primaryAccountBranchSet;
-//    }
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "branch")
+    public Set<PrimaryAccountBranch> getPrimaryAccountBranchHistory() {
+        return primaryAccountBranchHistory;
+    }
+
+    public void setPrimaryAccountBranchHistory(Set<PrimaryAccountBranch> storeProducts) {
+        this.primaryAccountBranchHistory = storeProducts;
+    }
 
 
     public void addProduct(SessionFactory sessionFactory, Product product, int quantity) {

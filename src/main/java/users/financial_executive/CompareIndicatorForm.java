@@ -1,4 +1,4 @@
-package test;
+package users.financial_executive;
 
 import javax.swing.*;
 import java.awt.*;

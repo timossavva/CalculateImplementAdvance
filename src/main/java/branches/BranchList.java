@@ -1,6 +1,7 @@
 package branches;
 
 import org.hibernate.Session;
+import stores.Store;
 import utils.HibernateUtil;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class BranchList {
         hibernateUtil.shutdown();
     }
 
-    public ArrayList<Branch> getBranchList() {
+    public static ArrayList<Branch> getBranchList() {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
         ArrayList<Branch> branchesList = (ArrayList<Branch>) session.createQuery("from Branch").list();
@@ -46,6 +47,14 @@ public class BranchList {
         session.close();
         hibernateUtil.shutdown();
         return branchesList;
+    }
+
+    public static String[] getBranchTitles(ArrayList<Branch> branchList) {
+        String[] storeNames = new String[branchList.size()];
+        for (int i = 0; i < branchList.size(); i++) {
+            storeNames[i] = branchList.get(i).getName();
+        }
+        return storeNames;
     }
 
     public Branch refreshBranchData(Branch branch) {

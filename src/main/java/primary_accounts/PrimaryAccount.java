@@ -1,5 +1,7 @@
 package primary_accounts;
 
+import products.Product;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -39,5 +41,16 @@ public class PrimaryAccount {
 
     public void setPrimaryAccountBranchSet(Set<PrimaryAccountBranch> primaryAccountBranchSet) {
         this.primaryAccountBranchSet = primaryAccountBranchSet;
+    }
+
+    public boolean equals(Object otherObject) {
+        if (otherObject == null) {
+            return false;
+        } else if (getClass() != otherObject.getClass()) {
+            return false;
+        } else {
+            PrimaryAccount otherPrimaryAccount = (PrimaryAccount) otherObject;
+            return id == otherPrimaryAccount.id;
+        }
     }
 }

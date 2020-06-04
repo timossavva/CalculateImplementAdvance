@@ -1,6 +1,7 @@
 package users;
 
 import org.hibernate.Session;
+import users.financial_executive.FinancialExecutiveFrame;
 import utils.HibernateUtil;
 
 import java.util.ArrayList;
@@ -73,13 +74,12 @@ public class UserList {
         if (accountTypes[0].equals(accountType)) {
             new AdministrativeFrame();
         } else if (accountTypes[1].equals(accountType)) {
-
+            new FinancialExecutiveFrame();
         } else if (accountTypes[2].equals(accountType)) {
-
+            new FinancialExecutiveFrame();
         } else if (accountTypes[3].equals(accountType)) {
-
+            new FinancialExecutiveFrame();
         } else if (accountTypes[4].equals(accountType)) {
-
         } else if (accountTypes[5].equals(accountType)) {
             new StoreKeeperFrame(user.getBranch());
         }

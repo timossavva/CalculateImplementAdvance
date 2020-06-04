@@ -16,7 +16,7 @@ public class StoreList {
         hibernateUtil.shutdown();
     }
 
-    public ArrayList<Store> getStoreList() {
+    public static ArrayList<Store> getStoreList() {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
         ArrayList<Store> storeList = (ArrayList<Store>) session.createQuery("from Store").list();
@@ -26,7 +26,7 @@ public class StoreList {
         return storeList;
     }
 
-    public String[] getStoreNames(ArrayList<Store> storeList) {
+    public static String[] getStoreNames(ArrayList<Store> storeList) {
         String[] storeNames = new String[storeList.size()];
         for (int i = 0; i < storeList.size(); i++) {
             storeNames[i] = storeList.get(i).getName();

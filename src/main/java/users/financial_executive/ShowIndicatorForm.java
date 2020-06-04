@@ -1,32 +1,32 @@
-package test;
+package users.financial_executive;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class ShowPrimaryAccountForm {
+class ShowIndicatorForm {
 
     private final JFrame jfrm;
-    private final JButton jbtnComparePrimAccounts;
+    private final JButton jbtnCompareIndicators;
     private final JPanel buttonPanel;
 
-    ShowPrimaryAccountForm(ShowPrimaryAccountJPanel showPrimAccount) {
-        jfrm = new JFrame("Προβολή Πρωτογενή Λογαριασμού");
+    ShowIndicatorForm(ShowIndicatorJPanel showIndicator) {
+        jfrm = new JFrame("Προβολή Δείκτη");
         jfrm.setSize(600, 350);
         jfrm.setResizable(false);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        jfrm.add(showPrimAccount);
+        jfrm.add(showIndicator);
 
-        jbtnComparePrimAccounts = new JButton("Σύγκριση Πρωτογενών Λογαριασμών");
+        jbtnCompareIndicators = new JButton("Σύγκριση Δεικτών");
         buttonPanel = new JPanel();
-        buttonPanel.add(jbtnComparePrimAccounts);
+        buttonPanel.add(jbtnCompareIndicators);
         jfrm.add(buttonPanel, BorderLayout.SOUTH);
 
         jfrm.setVisible(true);
 
         // compareButton event...
-        jbtnComparePrimAccounts.addActionListener(new ActionListener() {
+        jbtnCompareIndicators.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
@@ -38,7 +38,7 @@ class ShowPrimaryAccountForm {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new ShowPrimaryAccountForm(new ShowPrimaryAccountJPanel());
+                new ShowIndicatorForm(new ShowIndicatorJPanel());
             }
         });
     }
