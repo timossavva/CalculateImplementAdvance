@@ -1,10 +1,7 @@
 package utils.tables_init;
 
-import branches.Branch;
-import products.BranchProduct;
-import products.Product;
-import stores.Store;
-import users.User;
+import products.objects.BranchProduct;
+import products.objects.Product;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;

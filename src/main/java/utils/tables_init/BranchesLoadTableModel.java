@@ -1,6 +1,6 @@
 package utils.tables_init;
 
-import branches.Branch;
+import branches.objects.Branch;
 import stores.Store;
 
 import javax.swing.table.DefaultTableModel;

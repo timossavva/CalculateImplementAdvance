@@ -1,9 +1,11 @@
-import users.LoginForm;
+import users.ui.LoginForm;
+
+import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        new LoginForm();
+        SwingUtilities.invokeLater(LoginForm::new);
     }
 
 }

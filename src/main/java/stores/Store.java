@@ -1,6 +1,6 @@
 package stores;
 
-import branches.Branch;
+import branches.objects.Branch;
 
 import javax.persistence.*;
 import java.util.Set;
