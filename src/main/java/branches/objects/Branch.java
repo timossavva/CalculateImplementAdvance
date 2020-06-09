@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import primary_accounts.objects.PrimaryAccountBranch;
 import products.objects.BranchProduct;
 import products.objects.Product;
-import stores.Store;
+import stores.objects.Store;
 import utils.HibernateUtil;
 
 import javax.persistence.*;

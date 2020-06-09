@@ -2,7 +2,7 @@ package primary_accounts.objects;
 
 import branches.objects.Branch;
 import org.hibernate.Session;
-import stores.Store;
+import stores.objects.Store;
 import utils.HibernateUtil;
 
 import java.util.ArrayList;

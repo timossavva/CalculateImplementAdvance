@@ -40,7 +40,7 @@
         <mapping class="users.objects.User"/>
         <mapping class="products.objects.Product"/>
         <mapping class="products.objects.BranchProduct"/>
-        <mapping class="stores.Store"/>
+        <mapping class="stores.objects.Store"/>
         <mapping class="branches.objects.Branch"/>
         <mapping class="primary_accounts.objects.PrimaryAccount"/>
         <mapping class="primary_accounts.objects.PrimaryAccountBranch"/>

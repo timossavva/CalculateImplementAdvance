@@ -1,4 +1,4 @@
-package stores;
+package stores.objects;
 
 import branches.objects.Branch;
 

@@ -1,7 +1,7 @@
 package users.objects;
 
 import branches.objects.Branch;
-import stores.Store;
+import stores.objects.Store;
 
 import javax.persistence.*;
 

@@ -2,8 +2,8 @@ package branches.ui;
 
 import branches.objects.Branch;
 import branches.objects.BranchList;
-import stores.Store;
-import stores.StoreList;
+import stores.objects.Store;
+import stores.objects.StoreList;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

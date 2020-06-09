@@ -1,7 +1,7 @@
 package utils.tables_init;
 
 import branches.objects.Branch;
-import stores.Store;
+import stores.objects.Store;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
