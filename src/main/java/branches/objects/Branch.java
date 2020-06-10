@@ -164,5 +164,8 @@ public class Branch {
         hibernateUtil.shutdown();
     }
 
+    public Set<BranchProduct> getProducts() {
+        return branchProducts;
+    }
 
 }

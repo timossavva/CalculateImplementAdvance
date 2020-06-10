@@ -20,7 +20,7 @@ public class BranchList {
         return false;
     }
 
-    public void update(Branch branch) {
+    public synchronized static void update(Branch branch) {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
         session.update(branch);
