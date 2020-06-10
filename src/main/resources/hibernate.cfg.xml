@@ -20,7 +20,7 @@
         <!--                 -->
 
         <!--MIXALIS PATH-->
-        <!--        jdbc:sqlite:/home/mikemp/IdeaProjects/CalculateImplementAdvance/target/classes/db.sqlite3         -->
+        <!--        jdbc:sqlite:/home/mikemp/IdeaProjects/CalculateImplementAdvance/src/main/resources/db.sqlite3         -->
 
         <!--LYSIMACHOS PATH-->
         <!--                 -->
