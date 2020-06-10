@@ -144,7 +144,7 @@ public class AddBranchProductForm extends JFrame {
                     }
 
                     /* Update the branch's storage */
-                    branchOfUser.setBranchProducts(branchProducts);
+//                    branchOfUser.setBranchProducts(branchProducts);
                     HibernateUtil hibernateUtil = new HibernateUtil();
                     Session session = hibernateUtil.beginSessionTransaction();
                     session.saveOrUpdate(branchOfUser);

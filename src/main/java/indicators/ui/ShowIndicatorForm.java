@@ -1,4 +1,5 @@
 package indicators.ui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +29,7 @@ public class ShowIndicatorForm {
         // compareButton event...
         jbtnCompareIndicators.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                new CompareIndicatorForm(new ShowIndicatorJPanel(), new ShowIndicatorJPanel());
             }
         });
 

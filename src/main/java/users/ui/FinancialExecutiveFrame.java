@@ -1,13 +1,10 @@
 package users.ui;
 
 import branches.ui.BranchListFrame;
-import indicators.ui.ShowIndicatorForm;
-import indicators.ui.ShowIndicatorJPanel;
-import primary_accounts.ui.ShowPrimaryAccountForm;
-import primary_accounts.ui.ShowPrimaryAccountJPanel;
+import primary_accounts.ui.ShowPrimaryAccountOrIndicatorForm;
+import primary_accounts.ui.ShowPrimaryAccountOrIndicatorJPanel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class FinancialExecutiveFrame extends JFrame {
     private JButton primaryAccountsButton;
@@ -23,41 +20,25 @@ public class FinancialExecutiveFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
-        setButtonListeners();
+        primaryAccountsButton.addActionListener(e -> {
+            new ShowPrimaryAccountOrIndicatorForm(new ShowPrimaryAccountOrIndicatorJPanel(true));
+            dispose();
+        });
+
+        indicatorsButton.addActionListener(e -> {
+            new ShowPrimaryAccountOrIndicatorForm(new ShowPrimaryAccountOrIndicatorJPanel(false));
+            dispose();
+        });
+
+        notificationsButton.addActionListener(e -> {
+            new BranchListFrame();
+            dispose();
+        });
+
+        logoutButton.addActionListener(e -> {
+            new LoginForm();
+            dispose();
+        });
     }
 
-    private void setButtonListeners() {
-        primaryAccountsButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                new ShowPrimaryAccountForm(new ShowPrimaryAccountJPanel());
-                dispose();
-            }
-        });
-
-        indicatorsButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                new ShowIndicatorForm(new ShowIndicatorJPanel());
-                dispose();
-            }
-        });
-
-        notificationsButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                new BranchListFrame();
-                dispose();
-            }
-        });
-
-        logoutButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                new LoginForm();
-                dispose();
-            }
-        });
-
-    }
 }

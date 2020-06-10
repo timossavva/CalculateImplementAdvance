@@ -2,10 +2,10 @@ package primary_accounts.ui;
 
 import branches.objects.Branch;
 import branches.objects.BranchList;
+import indicators.objects.Indicator;
+import indicators.objects.IndicatorManager;
 import primary_accounts.objects.PrimaryAccount;
-import primary_accounts.objects.PrimaryAccountList;
-import stores.objects.Store;
-import stores.objects.StoreList;
+import primary_accounts.objects.PrimaryAccountsManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,50 +18,49 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
+public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements ActionListener {
     private static final String euro = "\u20ac";
-    private final JButton jbtnOK;
     private final JRadioButton jrbStore;
-    private final JLabel jLabelSelectPrimaryAccount;
     private final JLabel jLabelPrice;
-    private final JComboBox primaryAccountCompoBox;
-    private final ButtonGroup buttonGroup;
-    private final ArrayList<PrimaryAccount> primaryAccountList;
-    private final ArrayList<Store> storeList;
-    private final ArrayList<Branch> branchList;
+    private final JComboBox primaryAccountOrIndicatorCompoBox;
+    private ArrayList<PrimaryAccount> primaryAccountList;
+    private ArrayList<Indicator> indicatorList;
     private final JComboBox<String> branchCombobox;
-    private final String[] primaryAccountTitles;
-    private final String[] branchTitles;
-    private final String[] storeTitles;
     private final JRadioButton jRadioButtonBranch;
     JFormattedTextField dateTextField;
+    private final boolean primaryOrIndicator;
 
-    public ShowPrimaryAccountJPanel() {
+    public ShowPrimaryAccountOrIndicatorJPanel(boolean primaryOrIndicator) {
         super(new GridLayout(4, 1));
-        this.primaryAccountList = PrimaryAccountList.getPrimaryAccountList();
+        this.primaryOrIndicator = primaryOrIndicator;
 
-        this.storeList = StoreList.getStoreList();
-        this.branchList = BranchList.getBranchList();
+        String[] primaryAccountOrIndicatorTitles;
+        if (primaryOrIndicator) {
+            this.primaryAccountList = PrimaryAccountsManager.getPrimaryAccountList();
+            primaryAccountOrIndicatorTitles = PrimaryAccountsManager.getPrimaryAccountTitles();
+        } else {
+            this.indicatorList = IndicatorManager.getIndicatorList();
+            primaryAccountOrIndicatorTitles = IndicatorManager.getIndicatorTitles();
+        }
 
-        this.storeTitles = StoreList.getStoreNames(storeList);
-        this.branchTitles = BranchList.getBranchTitles(branchList);
+        ArrayList<Branch> branchList = BranchList.getBranchList();
+        String[] branchTitles = BranchList.getBranchTitles(branchList);
 
-        this.primaryAccountTitles = PrimaryAccountList.getPrimaryAccountTitles();
 
-        jLabelSelectPrimaryAccount = new JLabel("Επιλέξτε Πρωτογενή Λογαριασμό:");
-        primaryAccountCompoBox = new JComboBox<>(primaryAccountTitles);
-        primaryAccountCompoBox.setPreferredSize(new Dimension(300, 30));
+        JLabel jLabelSelectPrimaryAccount = new JLabel(primaryOrIndicator ? "Επιλέξτε Πρωτογενή Λογαριασμό:" : "Επιλέξτε Δείκτη:");
+        primaryAccountOrIndicatorCompoBox = new JComboBox<>(primaryAccountOrIndicatorTitles);
+        primaryAccountOrIndicatorCompoBox.setPreferredSize(new Dimension(300, 30));
         JPanel panel1 = new JPanel();
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         panel1.add(jLabelSelectPrimaryAccount);
-        panel1.add(primaryAccountCompoBox);
+        panel1.add(primaryAccountOrIndicatorCompoBox);
 
 
         jrbStore = new JRadioButton("Εταιρία", true);
         jrbStore.addActionListener(this);
         jRadioButtonBranch = new JRadioButton("Υποκατάστημα", false);
         jRadioButtonBranch.addActionListener(this);
-        buttonGroup = new ButtonGroup();
+        ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(jrbStore);
         buttonGroup.add(jRadioButtonBranch);
         branchCombobox = new JComboBox<>(branchTitles);
@@ -83,7 +82,7 @@ public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
         panel3.add(jlabDate);
         panel3.add(dateTextField);
 
-        jbtnOK = new JButton("OK");
+        JButton jButtonOK = new JButton("OK");
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         jLabelPrice = new JLabel("Τιμή:");
         jLabelPrice.setBorder(border);
@@ -91,7 +90,7 @@ public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
         //jlabPrice.setEnabled(false);
         JPanel panel4 = new JPanel();
         panel4.setLayout(new FlowLayout(FlowLayout.LEFT, 22, 15));
-        panel4.add(jbtnOK);
+        panel4.add(jButtonOK);
         panel4.add(jLabelPrice);
 
         add(panel1);
@@ -99,22 +98,24 @@ public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
         add(panel3);
         add(panel4);
 
-        setButtonListeners();
+        jButtonOK.addActionListener(e -> {
+            okButtonAction();
+        });
     }
 
-    private void setButtonListeners() {
-        // calculate the Price
-        jbtnOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                calcPrimaryAccountValue();
-            }
-        });
+    private void okButtonAction() {
+        if (primaryOrIndicator) {
+            calcPrimaryAccountValue();
+        } else {
+            // Indicator
+            calcIndicatorValue();
+        }
     }
 
     private void calcPrimaryAccountValue() {
         double value;
         // Get selected primary account object
-        PrimaryAccount primaryAccount = primaryAccountList.get(primaryAccountCompoBox.getSelectedIndex());
+        PrimaryAccount primaryAccount = primaryAccountList.get(primaryAccountOrIndicatorCompoBox.getSelectedIndex());
         // Get selected branch object
         Branch branch = BranchList.getBranchList().get(branchCombobox.getSelectedIndex());
         // Get selected date and convert it to string
@@ -122,9 +123,32 @@ public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
 
         // Calculate primary account
         if (jRadioButtonBranch.isSelected())  // Branch Radio Button is Selected
-            value = PrimaryAccountList.calcPrimaryAccountForBranch(primaryAccount, branch, dateString);
+            value = PrimaryAccountsManager.calcPrimaryAccount(false, primaryAccount, null, branch, dateString);
         else  // Store Radio Button is Selected
-            value = PrimaryAccountList.calcPrimaryAccountForStore(primaryAccount, branch.getStore(), dateString);
+            value = PrimaryAccountsManager.calcPrimaryAccount(true, primaryAccount, branch.getStore(), null, dateString);
+
+        System.out.println("value -> " + value);
+        if (value != -1) {
+            jLabelPrice.setText(String.valueOf(value));
+        } else {
+            jLabelPrice.setText("Not available");
+        }
+    }
+
+    private void calcIndicatorValue() {
+        double value;
+        // Get selected primary account object
+        Indicator indicator = indicatorList.get(primaryAccountOrIndicatorCompoBox.getSelectedIndex());
+        // Get selected branch object
+        Branch branch = BranchList.getBranchList().get(branchCombobox.getSelectedIndex());
+        // Get selected date and convert it to string
+        String dateString = new SimpleDateFormat("dd-MM-yyyy").format((Date) dateTextField.getValue());
+
+        // Calculate primary account
+        if (jRadioButtonBranch.isSelected())  // Branch Radio Button is Selected
+            value = IndicatorManager.calcIndicator(false, indicator, null, branch, dateString);
+        else  // Store Radio Button is Selected
+            value = IndicatorManager.calcIndicator(true, indicator, branch.getStore(), null, dateString);
 
         System.out.println("value -> " + value);
         if (value != -1) {
@@ -145,4 +169,7 @@ public class ShowPrimaryAccountJPanel extends JPanel implements ActionListener {
         }
     }
 
-} 
+    public boolean getPrimaryOrIndicator() {
+        return primaryOrIndicator;
+    }
+}

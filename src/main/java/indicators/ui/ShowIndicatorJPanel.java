@@ -83,17 +83,11 @@ public class ShowIndicatorJPanel extends JPanel implements ActionListener {
         add(panel4);
 
         // calculate the Price
-        jbtnOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jlabPrice.setText("ssasdsd");
-            }
-        });
+        jbtnOK.addActionListener(e -> jlabPrice.setText("ssasdsd"));
 
         // for enter click
-        dateTextField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        dateTextField.addActionListener(e -> {
 
-            }
         });
 
     }
