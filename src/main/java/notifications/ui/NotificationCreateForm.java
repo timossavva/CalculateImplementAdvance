@@ -19,6 +19,7 @@ public class NotificationCreateForm extends JFrame{
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
+    private JComboBox comboBox3;
 
     public NotificationCreateForm(){
         this.setSize(600,600);

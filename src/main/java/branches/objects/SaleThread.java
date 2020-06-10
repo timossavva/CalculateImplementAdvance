@@ -29,6 +29,7 @@ public class SaleThread implements Runnable {
     public void run() {
         try {
             boolean stopSales = false;
+            insertStaticPrimaryAccountsForToday();
             while (!stopSales) {
                 if (Thread.interrupted()) {
                     throw new InterruptedException();
@@ -39,6 +40,7 @@ public class SaleThread implements Runnable {
                     stopSales = true;
                     System.out.println(("Sales stoped."));
                 }
+
 
                 ArrayList<Branch> branchList = BranchList.getBranchList();
                 for (Branch b : branchList) {
@@ -76,6 +78,11 @@ public class SaleThread implements Runnable {
         }
     }
 
+    private void insertStaticPrimaryAccountsForToday() {
+        // insert primary accounts with id 1,2,3,7,11,13,14,25,
+        //TODO
+    }
+
     private void updatePrimaryAccounts(Branch branch, double value, long primaryAccountId) {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String todayDate = df.format(new Date());
@@ -94,20 +101,17 @@ public class SaleThread implements Runnable {
                 }
             }
 
-//            if (!found) {
-//                System.out.println("Primary Account with name '" + primaryAccountToUpdate.getName()
-//                        + "' for the branch with name -> " + branch.getName() + " and date -> " +
-//                        todayDate + " not existed so creating the record with the value of -> " + value);
-//                PrimaryAccountBranch primaryAccountBranch = new PrimaryAccountBranch();
-//                primaryAccountBranch.setDate(todayDate);
-//                primaryAccountBranch.setValue((float) value);
-//                primaryAccountBranch.setBranch(branch);
-//                System.out.println("aaaaaaa "+primaryAccountToUpdate.getId());
-//                primaryAccountBranch.setPrimaryAccount(primaryAccountToUpdate);
-//                PrimaryAccountsManager.create();
-//                branch.addPrimaryAccountBranch(primaryAccountBranch);
-//                BranchList.update(branch);
-//            }
+            if (!found) {
+                System.out.println("Primary Account with name '" + primaryAccountToUpdate.getName()
+                        + "' for the branch with name -> " + branch.getName() + " and date -> " +
+                        todayDate + " not existed so creating the record with the value of -> " + value);
+                PrimaryAccountBranch primaryAccountBranch = new PrimaryAccountBranch();
+                primaryAccountBranch.setDate(todayDate);
+                primaryAccountBranch.setValue((float) value);
+                primaryAccountBranch.setBranch(branch);
+                primaryAccountBranch.setPrimaryAccount(primaryAccountToUpdate);
+                PrimaryAccountsManager.create(primaryAccountBranch);
+            }
         }
     }
 }

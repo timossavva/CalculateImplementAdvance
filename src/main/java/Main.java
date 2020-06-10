@@ -11,7 +11,7 @@ public class Main {
 
         Calendar stopTime = Calendar.getInstance();
         stopTime.set(Calendar.HOUR, 12);
-        SaleThread salethread = new SaleThread(2, stopTime);
+        new SaleThread(1, stopTime);
     }
 
 }

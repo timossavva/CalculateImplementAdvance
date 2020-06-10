@@ -27,7 +27,7 @@ public class PrimaryAccountBranch {
         this.id = id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "primary_account_id")
     public PrimaryAccount getPrimaryAccount() {
         return primaryAccount;
