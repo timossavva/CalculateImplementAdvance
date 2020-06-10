@@ -34,7 +34,7 @@ public class SaleThread implements Runnable {
                 double sum = 0;
                 for (Branch b : branchList) {
                     Random rand = new Random(System.currentTimeMillis());
-                    BranchProduct[] ArrayOfProducts = (BranchProduct[]) b.getProducts().toArray();
+                    BranchProduct[] ArrayOfProducts = (BranchProduct[]) b.getBranchProducts().toArray();
                     for (int i=0; i<ArrayOfProducts.length/2; i++) {
                         BranchProduct bp = ArrayOfProducts[rand.nextInt(ArrayOfProducts.length)];
                         if (bp.getQuantity() > 10) {
