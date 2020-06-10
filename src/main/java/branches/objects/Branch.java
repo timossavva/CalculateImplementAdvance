@@ -114,7 +114,7 @@ public class Branch {
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "branch")
-    @OrderBy("quantity")
+    @OrderBy("id")
     public Set<BranchProduct> getBranchProducts() {
         return branchProducts;
     }
@@ -164,4 +164,7 @@ public class Branch {
         hibernateUtil.shutdown();
     }
 
+    public void addPrimaryAccountBranch(PrimaryAccountBranch primaryAccountBranch) {
+        primaryAccountBranchHistory.add(primaryAccountBranch);
+    }
 }

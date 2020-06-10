@@ -11,10 +11,21 @@ import java.util.Set;
 
 public class PrimaryAccountsManager {
 
+    public static void create(PrimaryAccountBranch primaryAccountBranch) {
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        session.save(primaryAccountBranch);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
+    }
+
     public static ArrayList<PrimaryAccount> getPrimaryAccountList() {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
         ArrayList<PrimaryAccount> primaryAccountList = (ArrayList<PrimaryAccount>) session.createQuery("from PrimaryAccount ").list();
+        session.flush();
         session.getTransaction().commit();
         session.close();
         hibernateUtil.shutdown();

@@ -4,7 +4,8 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-    <session-factory>
+
+<session-factory>
 
         <!-- SQLite-->
         <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
@@ -46,4 +47,5 @@
         <mapping class="primary_accounts_and_indicators.primary_accounts.PrimaryAccountBranch"/>
 
     </session-factory>
+
 </hibernate-configuration>

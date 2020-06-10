@@ -10,8 +10,8 @@ public class Main {
         SwingUtilities.invokeLater(LoginForm::new);
 
         Calendar stopTime = Calendar.getInstance();
-        stopTime.set(Calendar.HOUR, 11);
-        SaleThread salethread = new SaleThread(1, stopTime);
+        stopTime.set(Calendar.HOUR, 12);
+        SaleThread salethread = new SaleThread(2, stopTime);
     }
 
 }
