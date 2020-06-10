@@ -1,4 +1,4 @@
-package primary_accounts.objects;
+package primary_accounts_and_indicators.primary_accounts;
 
 import branches.objects.Branch;
 

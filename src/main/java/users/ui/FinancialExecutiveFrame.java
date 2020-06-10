@@ -1,8 +1,8 @@
 package users.ui;
 
 import branches.ui.BranchListFrame;
-import primary_accounts.ui.ShowPrimaryAccountOrIndicatorForm;
-import primary_accounts.ui.ShowPrimaryAccountOrIndicatorJPanel;
+import primary_accounts_and_indicators.ui.ShowPrimaryAccountOrIndicatorForm;
+import primary_accounts_and_indicators.ui.ShowPrimaryAccountOrIndicatorJPanel;
 
 import javax.swing.*;
 

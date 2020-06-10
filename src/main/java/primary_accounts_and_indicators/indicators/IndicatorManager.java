@@ -1,14 +1,14 @@
-package indicators.objects;
+package primary_accounts_and_indicators.indicators;
 
 import branches.objects.Branch;
-import primary_accounts.objects.PrimaryAccountsManager;
+import primary_accounts_and_indicators.primary_accounts.PrimaryAccountsManager;
 import stores.objects.Store;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static primary_accounts.objects.PrimaryAccountsManager.calcPrimaryAccount;
-import static primary_accounts.objects.PrimaryAccountsManager.calcPrimaryAccountSum;
+import static primary_accounts_and_indicators.primary_accounts.PrimaryAccountsManager.calcPrimaryAccount;
+import static primary_accounts_and_indicators.primary_accounts.PrimaryAccountsManager.calcPrimaryAccountSum;
 
 
 public class IndicatorManager {

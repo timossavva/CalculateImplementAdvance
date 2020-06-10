@@ -2,7 +2,7 @@ package branches.objects;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import primary_accounts.objects.PrimaryAccountBranch;
+import primary_accounts_and_indicators.primary_accounts.PrimaryAccountBranch;
 import products.objects.BranchProduct;
 import products.objects.Product;
 import stores.objects.Store;

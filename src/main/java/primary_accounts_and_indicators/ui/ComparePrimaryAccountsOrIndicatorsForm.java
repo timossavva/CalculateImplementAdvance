@@ -1,4 +1,4 @@
-package primary_accounts.ui;
+package primary_accounts_and_indicators.ui;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package indicators.objects;
+package primary_accounts_and_indicators.indicators;
 
 public class Indicator {
     private long id;

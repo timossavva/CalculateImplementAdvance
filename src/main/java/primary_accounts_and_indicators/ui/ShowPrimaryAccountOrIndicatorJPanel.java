@@ -1,11 +1,11 @@
-package primary_accounts.ui;
+package primary_accounts_and_indicators.ui;
 
 import branches.objects.Branch;
 import branches.objects.BranchList;
-import indicators.objects.Indicator;
-import indicators.objects.IndicatorManager;
-import primary_accounts.objects.PrimaryAccount;
-import primary_accounts.objects.PrimaryAccountsManager;
+import primary_accounts_and_indicators.indicators.Indicator;
+import primary_accounts_and_indicators.indicators.IndicatorManager;
+import primary_accounts_and_indicators.primary_accounts.PrimaryAccount;
+import primary_accounts_and_indicators.primary_accounts.PrimaryAccountsManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;

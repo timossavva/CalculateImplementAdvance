@@ -42,8 +42,8 @@
         <mapping class="products.objects.BranchProduct"/>
         <mapping class="stores.objects.Store"/>
         <mapping class="branches.objects.Branch"/>
-        <mapping class="primary_accounts.objects.PrimaryAccount"/>
-        <mapping class="primary_accounts.objects.PrimaryAccountBranch"/>
+        <mapping class="primary_accounts_and_indicators.primary_accounts.PrimaryAccount"/>
+        <mapping class="primary_accounts_and_indicators.primary_accounts.PrimaryAccountBranch"/>
 
     </session-factory>
 </hibernate-configuration>
