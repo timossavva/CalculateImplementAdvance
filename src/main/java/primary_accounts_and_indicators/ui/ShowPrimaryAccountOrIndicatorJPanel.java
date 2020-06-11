@@ -34,6 +34,7 @@ public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements Actio
         super(new GridLayout(4, 1));
         this.primaryOrIndicator = primaryOrIndicator;
 
+        // edooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
         String[] primaryAccountOrIndicatorTitles;
         if (primaryOrIndicator) {
             this.primaryAccountList = PrimaryAccountsManager.getPrimaryAccountList();
@@ -43,6 +44,7 @@ public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements Actio
             primaryAccountOrIndicatorTitles = IndicatorManager.getIndicatorTitles();
         }
 
+        // edooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
         ArrayList<Branch> branchList = BranchList.getBranchList();
         String[] branchTitles = BranchList.getBranchTitles(branchList);
 
@@ -65,6 +67,7 @@ public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements Actio
         buttonGroup.add(jRadioButtonBranch);
         branchCombobox = new JComboBox<>(branchTitles);
         branchCombobox.setPreferredSize(new Dimension(300, 30));
+        branchCombobox.setEnabled(false);
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.LEFT, 16, 15));
         panel2.add(jrbStore);
@@ -162,10 +165,10 @@ public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements Actio
     public void actionPerformed(ActionEvent e) {
         if (jrbStore.isSelected()) {
             // Store selected
-            branchCombobox.disable();
+            branchCombobox.setEnabled(false);
         } else {
             // Branch selected
-            branchCombobox.enable();
+            branchCombobox.setEnabled(true);
         }
     }
 

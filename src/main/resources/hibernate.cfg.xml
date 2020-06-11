@@ -11,7 +11,7 @@
         <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
         <!--        REPLACE THIS WITH YOUR PATH-->
         <property name="hibernate.connection.url">
-            jdbc:sqlite:E:\Projects\Programming\Java\CalculateImplementAdvance\src\main\resources\db.sqlite3
+                jdbc:sqlite:/home/mikemp/IdeaProjects/CalculateImplementAdvance/src/main/resources/db.sqlite3
         </property>
 
         <!--TIMOS PATH-->
