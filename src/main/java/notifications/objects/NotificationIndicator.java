@@ -14,12 +14,16 @@ public class NotificationIndicator extends Notification {
     }
 
     public boolean checkIfCompleted() {
+        double result;
         if (branch != null) {
-            double value = IndicatorManager.calcIndicator(false, indicator, null, branch, date);
+            result = IndicatorManager.calcIndicator(false, indicator, null, branch, date);
         } else {
             // Store
-            double value = IndicatorManager.calcIndicator(true, indicator, store, null, date);
+            result = IndicatorManager.calcIndicator(true, indicator, store, null, date);
         }
-        return false;
+        if ( ( (result - value > 0) && operator.equals(">") ) || ( (result - value < 0) && operator.equals("<") ) )
+            return true;
+        else
+            return false;
     }
 }

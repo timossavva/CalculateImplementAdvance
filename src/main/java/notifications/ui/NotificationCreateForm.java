@@ -1,5 +1,7 @@
 package notifications.ui;
 
+import users.ui.LoginForm;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -28,7 +30,5 @@ public class NotificationCreateForm extends JFrame {
         this.setVisible(true);
 
     }
-
-
 
 }
