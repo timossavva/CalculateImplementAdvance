@@ -1,6 +1,8 @@
 package notifications.objects;
 
 import branches.objects.Branch;
+import primary_accounts_and_indicators.indicators.Indicator;
+import primary_accounts_and_indicators.primary_accounts.PrimaryAccount;
 import stores.objects.Store;
 
 import java.util.Date;
@@ -10,16 +12,21 @@ public abstract class Notification {
     protected Store store;
     protected Branch branch;
     protected double value;
-    protected Date date;
+    protected String date;
     protected boolean enable;
     protected String operator;
+    protected Indicator indicator;
+    protected PrimaryAccount primaryAccount;
 
-    public Notification(Store store, Branch branch, Date date, double value, boolean enable, String operator) {
+
+    public Notification(Store store, Branch branch, String date, double value, boolean enable, String operator, Indicator indicator, PrimaryAccount primaryAccount) {
         this.store = store;
         this.branch = branch;
         this.date = date;
         this.enable = enable;
         this.operator = operator;
+        this.indicator = indicator;
+        this.primaryAccount = primaryAccount;
     }
 
     public Store getStore() {
@@ -46,11 +53,11 @@ public abstract class Notification {
         this.value = value;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
