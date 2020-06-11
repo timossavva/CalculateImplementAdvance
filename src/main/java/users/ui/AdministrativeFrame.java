@@ -3,8 +3,6 @@ package users.ui;
 
 import branches.ui.BranchListFrame;
 import stores.ui.StoreListFrame;
-import users.ui.LoginForm;
-import users.ui.UserListFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

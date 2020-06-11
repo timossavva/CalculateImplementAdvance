@@ -70,12 +70,13 @@ public class SaleThread implements Runnable {
                     }
 
                     // For every branch, every 50 euro worth of sales, update the working hours primary account by 1.
-                    updatePrimaryAccounts(branch, -receipt_stock_price, 6); // Αποθέματα
                     if (workingHoursSalesSum[i] > 50) {
                         updatePrimaryAccounts(branch, 1, 32);
                         workingHoursSalesSum[i] = 0;
                         System.out.println("Working hours for branch with name -> " + branch.getName() + " was increased by 1");
                     }
+
+                    updatePrimaryAccounts(branch, -receipt_stock_price, 6); // Αποθέματα
                     updatePrimaryAccounts(branch, receipt_stock_price, 21); // Ημερήσιο Κόστος Πωληθέντων
                     updatePrimaryAccounts(branch, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
                     updatePrimaryAccounts(branch, receipt_final_price, 19); // Ημερήσιες Πωλήσεις

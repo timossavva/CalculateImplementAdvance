@@ -1,7 +1,5 @@
 package users.ui;
 
-import branches.ui.BranchListFrame;
-import notifications.objects.NotificationList;
 import notifications.ui.NotificationsFrame;
 import primary_accounts_and_indicators.ui.ShowPrimaryAccountOrIndicatorForm;
 import primary_accounts_and_indicators.ui.ShowPrimaryAccountOrIndicatorJPanel;

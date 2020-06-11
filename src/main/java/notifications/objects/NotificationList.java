@@ -1,20 +1,17 @@
 package notifications.objects;
 
-import branches.objects.Branch;
-
 import java.util.ArrayList;
 
 public class NotificationList {
 
-    private static ArrayList<Notification> notificationsList;
+    private static ArrayList<Notification> notificationsList = new ArrayList<>();
 
-
-    public void addNotification(Notification notification){
-        notificationsList.add(notification);
+    public static ArrayList<Notification> getNotifications() {
+        return notificationsList;
     }
 
-    public static ArrayList<Notification> getNotifications(){
-        return notificationsList;
+    public static void addNotification(Notification notification) {
+        notificationsList.add(notification);
     }
 
 }

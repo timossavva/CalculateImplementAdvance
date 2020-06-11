@@ -34,7 +34,6 @@ public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements Actio
         super(new GridLayout(4, 1));
         this.primaryOrIndicator = primaryOrIndicator;
 
-        // edooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
         String[] primaryAccountOrIndicatorTitles;
         if (primaryOrIndicator) {
             this.primaryAccountList = PrimaryAccountsManager.getPrimaryAccountList();
@@ -44,7 +43,6 @@ public class ShowPrimaryAccountOrIndicatorJPanel extends JPanel implements Actio
             primaryAccountOrIndicatorTitles = IndicatorManager.getIndicatorTitles();
         }
 
-        // edooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
         ArrayList<Branch> branchList = BranchList.getBranchList();
         String[] branchTitles = BranchList.getBranchTitles(branchList);
 

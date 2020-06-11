@@ -1,19 +1,19 @@
 package notifications.objects;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
 public class NotificationThread implements Runnable {
 
+    private final int delay;
+    private final Calendar stopTime;
     private volatile boolean suspended;
     private volatile boolean stopped;
 
-    private final int delay;
-    private final Calendar stopTime;
-
     public NotificationThread(int delay, Calendar stopTime) {
-        suspended=false;
-        stopped=false;
+        suspended = false;
+        stopped = false;
 
         this.delay = delay;
         this.stopTime = stopTime;
@@ -40,19 +40,22 @@ public class NotificationThread implements Runnable {
 
                 ArrayList<Notification> notificationList = NotificationList.getNotifications();
                 for (Notification notification : notificationList) {
-                    if( notification.isEnable() ) {
+                    if (notification.isEnable()) {
                         boolean completed = notification.checkIfCompleted();
-
+                        if (completed) {
+                            notification.setEnable(false);
+                            System.out.println("completed");
+                        }
                     }
                 }
 
                 Thread.sleep(delay * 1000);
                 if (suspended || stopped) synchronized (this) {
-                        while(suspended) wait();
-                        if (stopped) {
-                            break;
-                        }
+                    while (suspended) wait();
+                    if (stopped) {
+                        break;
                     }
+                }
             }
 
         } catch (InterruptedException e) {
@@ -60,7 +63,7 @@ public class NotificationThread implements Runnable {
         }
     }
 
-    public synchronized void stopThread(){
+    public synchronized void stopThread() {
         stopped = true;
         suspended = false;
         notify();

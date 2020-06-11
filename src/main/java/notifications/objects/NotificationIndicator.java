@@ -21,9 +21,6 @@ public class NotificationIndicator extends Notification {
             // Store
             result = IndicatorManager.calcIndicator(true, indicator, store, null, date);
         }
-        if ( ( (result - value > 0) && operator.equals(">") ) || ( (result - value < 0) && operator.equals("<") ) )
-            return true;
-        else
-            return false;
+        return ((result > value) && operator.equals(">")) || ((result < value) && operator.equals("<"));
     }
 }
