@@ -1,6 +1,7 @@
 package notifications.objects;
 
 import branches.objects.Branch;
+import branches.objects.BranchList;
 import primary_accounts_and_indicators.indicators.Indicator;
 import primary_accounts_and_indicators.indicators.IndicatorManager;
 import primary_accounts_and_indicators.primary_accounts.PrimaryAccount;
@@ -16,6 +17,7 @@ public class NotificationIndicator extends Notification {
     public boolean checkIfCompleted() {
         double result;
         if (branch != null) {
+            branch = BranchList.getBranchById(branch.getId());
             result = IndicatorManager.calcIndicator(false, indicator, null, branch, date);
         } else {
             // Store

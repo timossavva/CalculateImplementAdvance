@@ -24,7 +24,7 @@ public class NotificationsLoadTableModel {
 
         // Create the headers of the table
         String[] columns = new String[]{
-                "Store", "Branch", "Date", "Enabled", "Value", "Operator"
+                "Name", "Store", "Branch", "Date", "Completed", "Value", "Operator"
         };
 
         // Create an empty table
@@ -48,7 +48,7 @@ public class NotificationsLoadTableModel {
                         data[i][j] = notification.getDate();
                         break;
                     case 4:
-                        data[i][j] = notification.isEnable();
+                        data[i][j] = !notification.isEnable();
                         break;
                     case 5:
                         data[i][j] = notification.getValue();

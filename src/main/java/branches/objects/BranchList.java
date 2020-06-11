@@ -7,6 +7,16 @@ import java.util.ArrayList;
 
 public class BranchList {
 
+    public static Branch getBranchById(long id) {
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.beginSessionTransaction();
+        Branch branch = (Branch) session.get(Branch.class, id);
+        session.getTransaction().commit();
+        session.close();
+        hibernateUtil.shutdown();
+        return branch;
+    }
+
     public boolean create(Branch branch) {
         if (!checkIfBranchExists(branch.getName())) {
             HibernateUtil hibernateUtil = new HibernateUtil();

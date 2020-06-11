@@ -1,11 +1,7 @@
-import branches.objects.SaleThread;
-import notifications.objects.Notification;
-import notifications.objects.NotificationList;
 import notifications.objects.NotificationThread;
 import users.ui.LoginForm;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Main {

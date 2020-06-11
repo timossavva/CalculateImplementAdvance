@@ -1,6 +1,7 @@
 package notifications.objects;
 
 import branches.objects.Branch;
+import branches.objects.BranchList;
 import primary_accounts_and_indicators.indicators.Indicator;
 import primary_accounts_and_indicators.primary_accounts.PrimaryAccount;
 import primary_accounts_and_indicators.primary_accounts.PrimaryAccountsManager;
@@ -15,6 +16,7 @@ public class NotificationPrimaryAccount extends Notification {
     public boolean checkIfCompleted() {
         double result;
         if (branch != null) {
+            branch = BranchList.getBranchById(branch.getId());
             result = PrimaryAccountsManager.calcPrimaryAccount(false, primaryAccount, null, branch, date);
         } else {
             // Store

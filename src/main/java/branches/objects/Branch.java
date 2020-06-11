@@ -167,4 +167,5 @@ public class Branch {
     public void addPrimaryAccountBranch(PrimaryAccountBranch primaryAccountBranch) {
         primaryAccountBranchHistory.add(primaryAccountBranch);
     }
+
 }
