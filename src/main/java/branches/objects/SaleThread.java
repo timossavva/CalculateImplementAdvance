@@ -17,7 +17,13 @@ public class SaleThread implements Runnable {
     private final int delay;
     private final Calendar stopTime;
 
+    private volatile boolean suspended;
+    private volatile boolean stopped;
+
     public SaleThread(int delay, Calendar stopTime) {
+        suspended=false;
+        stopped=false;
+
         this.delay = delay;
         this.stopTime = stopTime;
 
@@ -44,6 +50,7 @@ public class SaleThread implements Runnable {
 
                 ArrayList<Branch> branchList = BranchList.getBranchList();
                 for (Branch b : branchList) {
+
                     Random rand = new Random(System.currentTimeMillis());
                     BranchProduct[] arrayOfProducts = b.getBranchProducts().toArray(new BranchProduct[0]);
                     double receipt_stock_price = 0, receipt_final_price = 0;
@@ -70,8 +77,17 @@ public class SaleThread implements Runnable {
                     BranchList.update(b);
                     System.out.println(b.getName() + " branch sold " + receipt_stock_price);
 
+                    Thread.sleep(delay * 1000);
+
+                    if (suspended || stopped) synchronized (this) {
+                        while(suspended) wait();
+                        if (stopped) {
+                            stopSales=true;
+                            break;
+                        }
+                    }
                 }
-                Thread.sleep(delay * 1000);
+
             }
         } catch (InterruptedException e) {
             System.out.println("Sales Interrupted");
@@ -113,5 +129,20 @@ public class SaleThread implements Runnable {
                 PrimaryAccountsManager.create(primaryAccountBranch);
             }
         }
+    }
+
+    public synchronized void stopThread(){
+        stopped = true;
+        suspended = false;
+        notify();
+    }
+
+    public synchronized void suspendThread() {
+        suspended = true;
+    }
+
+    public synchronized void resumeThread() {
+        suspended = false;
+        notify();
     }
 }

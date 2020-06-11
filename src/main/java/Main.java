@@ -11,7 +11,21 @@ public class Main {
 
         Calendar stopTime = Calendar.getInstance();
         stopTime.set(Calendar.HOUR, 12);
-        new SaleThread(1, stopTime);
+        SaleThread saleThread = new SaleThread(5, stopTime);
+        try {
+            Thread.sleep(5000);
+            System.out.println("Suspend Thread");
+            saleThread.suspendThread();
+            Thread.sleep(15000);
+            System.out.println("Resume Thread");
+            saleThread.resumeThread();
+            Thread.sleep(5000);
+            System.out.println("Stop Thread");
+            saleThread.stopThread();
+        }
+        catch(InterruptedException e) {
+            System.out.println("Thread Interrupted");
+        }
     }
 
 }
