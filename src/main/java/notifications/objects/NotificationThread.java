@@ -1,4 +1,5 @@
 package notifications.objects;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -37,7 +38,13 @@ public class NotificationThread implements Runnable {
                     System.out.println(("Notifications stoped."));
                 }
 
+                ArrayList<Notification> notificationList = NotificationList.getNotifications();
+                for (Notification notification : notificationList) {
+                    if( notification.isEnable() ) {
+                        boolean completed = notification.checkIfCompleted();
 
+                    }
+                }
 
                 Thread.sleep(delay * 1000);
                 if (suspended || stopped) synchronized (this) {
@@ -49,7 +56,7 @@ public class NotificationThread implements Runnable {
             }
 
         } catch (InterruptedException e) {
-            System.out.println("Notifications Interrupted");
+            System.out.println("Notifications Thread Interrupted");
         }
     }
 
