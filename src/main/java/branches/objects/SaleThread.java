@@ -16,13 +16,13 @@ public class SaleThread implements Runnable {
     private static final int PRODUCT_NUMBER_TO_UPDATE = 100;
     private final int delay;
     private final Calendar stopTime;
-
+    private final double[] workingHoursSalesSum = new double[BranchList.getBranchList().size()];
     private volatile boolean suspended;
     private volatile boolean stopped;
 
     public SaleThread(int delay, Calendar stopTime) {
-        suspended=false;
-        stopped=false;
+        suspended = false;
+        stopped = false;
 
         this.delay = delay;
         this.stopTime = stopTime;
@@ -35,7 +35,6 @@ public class SaleThread implements Runnable {
     public void run() {
         try {
             boolean stopSales = false;
-            insertStaticPrimaryAccountsForToday();
             while (!stopSales) {
                 if (Thread.interrupted()) {
                     throw new InterruptedException();
@@ -44,17 +43,15 @@ public class SaleThread implements Runnable {
                 Calendar currentTime = Calendar.getInstance();
                 if (currentTime.compareTo(stopTime) >= 0) {
                     stopSales = true;
-                    System.out.println(("Sales stoped."));
                 }
 
-
                 ArrayList<Branch> branchList = BranchList.getBranchList();
-                for (Branch b : branchList) {
-
+                for (int i = 0; i < branchList.size(); i++) {
+                    Branch branch = branchList.get(i);
                     Random rand = new Random(System.currentTimeMillis());
-                    BranchProduct[] arrayOfProducts = b.getBranchProducts().toArray(new BranchProduct[0]);
+                    BranchProduct[] arrayOfProducts = branch.getBranchProducts().toArray(new BranchProduct[0]);
                     double receipt_stock_price = 0, receipt_final_price = 0;
-                    for (int i = 0; i < arrayOfProducts.length / 2; i++) {
+                    for (int j = 0; j < arrayOfProducts.length / 2; j++) {
                         BranchProduct bp = arrayOfProducts[rand.nextInt(arrayOfProducts.length)];
                         if (bp.getQuantity() > MIN_PRODUCTS_NUMBER) {
                             int quantity = rand.nextInt(5) + 1;
@@ -62,27 +59,34 @@ public class SaleThread implements Runnable {
                             double price = quantity * bp.getProduct().getPrice();
                             receipt_stock_price += price;
                             receipt_final_price += price * 1.33;
+                            workingHoursSalesSum[i] += price * 1.33;
+                            System.out.println(workingHoursSalesSum[i] + "  |  " + branch.getName());
                         } else {
                             // Storage of Branch is lower than MIN_PRODUCTS_NUMBER, so we are filling the storage
                             bp.setQuantity(PRODUCT_NUMBER_TO_UPDATE);
                             double priceToSubtractFromCash = bp.getProduct().getPrice() * 1.33 * PRODUCT_NUMBER_TO_UPDATE;
-                            updatePrimaryAccounts(b, -priceToSubtractFromCash, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+                            updatePrimaryAccounts(branch, -priceToSubtractFromCash, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
                         }
                     }
-                    updatePrimaryAccounts(b, -receipt_stock_price, 6); // Αποθέματα
-                    updatePrimaryAccounts(b, receipt_stock_price, 21); // Ημερήσιο Κόστος Πωληθέντων
-                    updatePrimaryAccounts(b, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
-                    updatePrimaryAccounts(b, receipt_final_price, 19); // Ημερήσιες Πωλήσεις
 
-                    BranchList.update(b);
-                    System.out.println(b.getName() + " branch sold " + receipt_stock_price);
+                    // For every branch, every 50 euro worth of sales, update the working hours primary account by 1.
+                    updatePrimaryAccounts(branch, -receipt_stock_price, 6); // Αποθέματα
+                    if (workingHoursSalesSum[i] > 50) {
+                        updatePrimaryAccounts(branch, 1, 32);
+                        workingHoursSalesSum[i] = 0;
+                        System.out.println("Working hours for branch with name -> " + branch.getName() + " was increased by 1");
+                    }
+                    updatePrimaryAccounts(branch, receipt_stock_price, 21); // Ημερήσιο Κόστος Πωληθέντων
+                    updatePrimaryAccounts(branch, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+                    updatePrimaryAccounts(branch, receipt_final_price, 19); // Ημερήσιες Πωλήσεις
+
+                    BranchList.update(branch);
 
                     Thread.sleep(delay * 1000);
-
                     if (suspended || stopped) synchronized (this) {
-                        while(suspended) wait();
+                        while (suspended) wait();
                         if (stopped) {
-                            stopSales=true;
+                            stopSales = true;
                             break;
                         }
                     }
@@ -92,11 +96,6 @@ public class SaleThread implements Runnable {
         } catch (InterruptedException e) {
             System.out.println("Sales Interrupted");
         }
-    }
-
-    private void insertStaticPrimaryAccountsForToday() {
-        // insert primary accounts with id 1,2,3,7,11,13,14,25,
-        //TODO
     }
 
     private void updatePrimaryAccounts(Branch branch, double value, long primaryAccountId) {
@@ -131,7 +130,7 @@ public class SaleThread implements Runnable {
         }
     }
 
-    public synchronized void stopThread(){
+    public synchronized void stopThread() {
         stopped = true;
         suspended = false;
         notify();
