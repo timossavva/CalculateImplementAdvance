@@ -48,7 +48,7 @@ public class BranchList {
         hibernateUtil.shutdown();
     }
 
-    public static ArrayList<Branch> getBranchList() {
+    public synchronized static ArrayList<Branch> getBranchList() {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.beginSessionTransaction();
         ArrayList<Branch> branchesList = (ArrayList<Branch>) session.createQuery("from Branch").list();

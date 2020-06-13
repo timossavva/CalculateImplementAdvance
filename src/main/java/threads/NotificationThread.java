@@ -1,4 +1,7 @@
-package notifications.objects;
+package threads;
+
+import notifications.objects.Notification;
+import notifications.objects.NotificationList;
 
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
@@ -48,9 +51,10 @@ public class NotificationThread implements Runnable {
                             notification.setEnable(false);
                             System.out.println("completed");
                             if (SystemTray.isSupported()) {
-                                String accountTitle = notification.getPrimaryAccount() != null ? notification.getPrimaryAccount().getName() : notification.getIndicator().getTitle();
-                                String operator = notification.getOperator().equals(">") ? "above" : "below";
-                                displayTray("CIA - Goal Achieved", accountTitle + " just got " + operator + " " + notification.getValue());
+                                String accountTitle = notification.getPrimaryAccount() != null ? notification.getPrimaryAccount().getName() : notification.getIndicator().getTitle(),
+                                        operator = notification.getOperator().equals(">") ? "above" : "below",
+                                        branchOrStoreTitle = notification.getStore() != null ? notification.getStore().getName() : notification.getBranch().getName();
+                                displayTray("CIA - Goal Achieved!", accountTitle + " just got " + operator + " " + notification.getValue() + " for " + branchOrStoreTitle);
                             } else {
                                 System.err.println("System tray not supported!");
                             }

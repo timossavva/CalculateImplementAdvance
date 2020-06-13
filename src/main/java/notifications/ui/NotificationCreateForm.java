@@ -14,7 +14,9 @@ import stores.objects.Store;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NotificationCreateForm extends JFrame {
     private final ArrayList<PrimaryAccount> primaryAccountList;
@@ -55,6 +57,7 @@ public class NotificationCreateForm extends JFrame {
         branchTitles = BranchList.getBranchTitles(branchList);
 
         initializeComboBoxes();
+        dateTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
         createButton.addActionListener(new AbstractAction() {
             @Override

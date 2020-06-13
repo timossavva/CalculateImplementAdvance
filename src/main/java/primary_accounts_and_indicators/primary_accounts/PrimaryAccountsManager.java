@@ -4,6 +4,7 @@ import branches.objects.Branch;
 import org.hibernate.Session;
 import stores.objects.Store;
 import utils.HibernateUtil;
+import utils.RoundNumber;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -50,13 +51,15 @@ public class PrimaryAccountsManager {
     }
 
     public static double calcPrimaryAccount(boolean storeOrBranch, PrimaryAccount primaryAccount, Store store, Branch branch, String date) {
+        double value;
         if (storeOrBranch) {
             // Store
-            return calcPrimaryAccountForStore(primaryAccount, store, date);
+            value = calcPrimaryAccountForStore(primaryAccount, store, date);
         } else {
             // Branch
-            return calcPrimaryAccountForBranch(primaryAccount, branch, date);
+            value = calcPrimaryAccountForBranch(primaryAccount, branch, date);
         }
+        return RoundNumber.round(value, 2);
     }
 
     private static double calcPrimaryAccountForStore(PrimaryAccount primaryAccount, Store store, String date) {
@@ -170,5 +173,6 @@ public class PrimaryAccountsManager {
                 sum += p.getValue();
         return sum;
     }
+
 
 }

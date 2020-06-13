@@ -1,5 +1,7 @@
-package branches.objects;
+package threads;
 
+import branches.objects.Branch;
+import branches.objects.BranchList;
 import primary_accounts_and_indicators.primary_accounts.PrimaryAccount;
 import primary_accounts_and_indicators.primary_accounts.PrimaryAccountBranch;
 import primary_accounts_and_indicators.primary_accounts.PrimaryAccountsManager;
@@ -73,7 +75,7 @@ public class SaleThread implements Runnable {
                     if (workingHoursSalesSum[i] > 50) {
                         updatePrimaryAccounts(branch, 1, 32);
                         workingHoursSalesSum[i] = 0;
-                        System.out.println("Working hours for branch with name -> " + branch.getName() + " was increased by 1");
+                        System.out.println("Working hours for branch with name -> " + branch.getName() + " was increased by 1 because 50 euro worth of sales were made.");
                     }
 
                     updatePrimaryAccounts(branch, -receipt_stock_price, 6); // Αποθέματα
