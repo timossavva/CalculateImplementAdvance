@@ -21,7 +21,7 @@ public class ShowPrimaryAccountOrIndicatorForm {
         jfrm.add(showPrimAccountOrIndicator);
 
         JButton jbtnComparePrimAccounts = new JButton(primaryOrIndicator ? "Σύγκριση Πρωτογενών Λογαριασμών" : "Σύγκριση Δεικτών");
-        JButton jbtnBack = new JButton("<-Πίσω");
+        JButton jbtnBack = new JButton("Πίσω");
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(jbtnBack);
         buttonPanel.add(jbtnComparePrimAccounts);
