@@ -1,14 +1,28 @@
-Usernames και Passwords για την είσοδο στο σύστημα:
+    Usernames και Passwords για την είσοδο στο σύστημα:
 
-username: admin   
-password: admin   
+    Administrator User:
+
+        username: admin   
+        password: admin   
+    
+    
+    Accountant Users:
+
+        1)
+            username: accountant_a
+            password: a1
+
+        2)
+            username: accountant_b
+            password: a2   
 
 
+    Store Keeper Users:
 
-username: accountant  
-password: a 
+        1)
+            username: storekeeper_a   
+            password: s1
 
-
-
-username: storeKeeper   
-password: s 
+        2)    
+            username: storekeeper_b   
+            password: s2
