@@ -32,6 +32,7 @@ public class ShowPrimaryAccountOrIndicatorForm {
         // compareButton event...
         jbtnComparePrimAccounts.addActionListener(e -> {
             new ComparePrimaryAccountsOrIndicatorsForm(new ShowPrimaryAccountOrIndicatorJPanel(primaryOrIndicator), new ShowPrimaryAccountOrIndicatorJPanel(primaryOrIndicator));
+            jfrm.dispose();
         });
 
         jbtnBack.addActionListener(e -> {

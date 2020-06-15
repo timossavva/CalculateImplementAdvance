@@ -49,11 +49,12 @@ public class SaleThread implements Runnable {
 
                 ArrayList<Branch> branchList = BranchList.getBranchList();
                 for (int i = 0; i < branchList.size(); i++) {
+                    double stockAdded=0;
                     Branch branch = branchList.get(i);
                     Random rand = new Random(System.currentTimeMillis());
                     BranchProduct[] arrayOfProducts = branch.getBranchProducts().toArray(new BranchProduct[0]);
                     double receipt_stock_price = 0, receipt_final_price = 0;
-                    for (int j = 0; j < arrayOfProducts.length / 2; j++) {
+                    for (int j = 0; j < arrayOfProducts.length/2; j++) {
                         BranchProduct bp = arrayOfProducts[rand.nextInt(arrayOfProducts.length)];
                         if (bp.getQuantity() > MIN_PRODUCTS_NUMBER) {
                             int quantity = rand.nextInt(5) + 1;
@@ -65,9 +66,15 @@ public class SaleThread implements Runnable {
                             System.out.println(workingHoursSalesSum[i] + "  |  " + branch.getName());
                         } else {
                             // Storage of Branch is lower than MIN_PRODUCTS_NUMBER, so we are filling the storage
-                            bp.setQuantity(PRODUCT_NUMBER_TO_UPDATE);
-                            double priceToSubtractFromCash = bp.getProduct().getPrice() * 1.33 * PRODUCT_NUMBER_TO_UPDATE;
-                            updatePrimaryAccounts(branch, -priceToSubtractFromCash, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+                            bp.setQuantity(bp.getQuantity() + PRODUCT_NUMBER_TO_UPDATE);
+                            double priceToSubtractFromCash = bp.getProduct().getPrice() * PRODUCT_NUMBER_TO_UPDATE;
+                            PrimaryAccount prAcc = PrimaryAccountsManager.getPrimaryAccountByID(8);
+                            String dateString = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                            if (priceToSubtractFromCash < PrimaryAccountsManager.calcPrimaryAccount(false, prAcc, null, branch, dateString)) {
+                                stockAdded += priceToSubtractFromCash;
+                                updatePrimaryAccounts(branch, -priceToSubtractFromCash, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+                            }
+
                         }
                     }
 
@@ -78,10 +85,12 @@ public class SaleThread implements Runnable {
                         System.out.println("Working hours for branch with name -> " + branch.getName() + " was increased by 1 because 50 euro worth of sales were made.");
                     }
 
-                    updatePrimaryAccounts(branch, -receipt_stock_price, 6); // Αποθέματα
+
+                    updatePrimaryAccounts(branch, (stockAdded-receipt_stock_price), 6); // Αποθέματα
                     updatePrimaryAccounts(branch, receipt_stock_price, 21); // Ημερήσιο Κόστος Πωληθέντων
                     updatePrimaryAccounts(branch, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
                     updatePrimaryAccounts(branch, receipt_final_price, 19); // Ημερήσιες Πωλήσεις
+
 
                     BranchList.update(branch);
 

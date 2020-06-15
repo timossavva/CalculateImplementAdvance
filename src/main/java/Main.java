@@ -4,6 +4,7 @@ import users.ui.LoginForm;
 
 import javax.swing.*;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
 
         Calendar stopTime = Calendar.getInstance();
         stopTime.set(Calendar.HOUR, 12);
-        new SaleThread(5, stopTime);
+        //new SaleThread(10, stopTime);
         new NotificationThread(10, stopTime);
 
     }

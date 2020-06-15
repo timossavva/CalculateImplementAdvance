@@ -73,6 +73,36 @@ public class NotificationCreateForm extends JFrame {
                 dispose();
             }
         });
+
+        indicatorRadioButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                primaryAccountComboBox.setEnabled(false);
+                indicatorComboBox.setEnabled(true);
+            }
+        });
+
+        primaryAccountRadioButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                indicatorComboBox.setEnabled(false);
+                primaryAccountComboBox.setEnabled(true);
+            }
+        });
+
+        storeRadioButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                branchComboBox.setEnabled(false);
+            }
+        });
+
+        branchRadioButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                branchComboBox.setEnabled(true);
+            }
+        });
     }
 
     private void initializeComboBoxes() {
