@@ -49,25 +49,28 @@ public class SaleThread implements Runnable {
 
                 ArrayList<Branch> branchList = BranchList.getBranchList();
                 for (int i = 0; i < branchList.size(); i++) {
-                    double stockAdded=0;
+                    double stockAdded = 0;
                     Branch branch = branchList.get(i);
                     Random rand = new Random(System.currentTimeMillis());
                     BranchProduct[] arrayOfProducts = branch.getBranchProducts().toArray(new BranchProduct[0]);
                     double receipt_stock_price = 0, receipt_final_price = 0;
-                    for (int j = 0; j < arrayOfProducts.length/2; j++) {
-                        BranchProduct bp = arrayOfProducts[rand.nextInt(arrayOfProducts.length)];
-                        if (bp.getQuantity() > MIN_PRODUCTS_NUMBER) {
-                            int quantity = rand.nextInt(5) + 1;
-                            bp.setQuantity(bp.getQuantity() - quantity);
-                            double price = quantity * bp.getProduct().getPrice();
+                    for (int j = 0; j < arrayOfProducts.length / 2; j++) {
+                        BranchProduct product = arrayOfProducts[rand.nextInt(arrayOfProducts.length)];
+                        int quantityToBuy = rand.nextInt(5) + 1;
+                        // If we have just enough or more products, then the sale its done
+                        if (product.getQuantity() >= quantityToBuy) {
+                            product.setQuantity(product.getQuantity() - quantityToBuy);
+                            double price = quantityToBuy * product.getProduct().getPrice();
                             receipt_stock_price += price;
                             receipt_final_price += price * 1.33;
                             workingHoursSalesSum[i] += price * 1.33;
                             System.out.println(workingHoursSalesSum[i] + "  |  " + branch.getName());
-                        } else {
-                            // Storage of Branch is lower than MIN_PRODUCTS_NUMBER, so we are filling the storage
-                            bp.setQuantity(bp.getQuantity() + PRODUCT_NUMBER_TO_UPDATE);
-                            double priceToSubtractFromCash = bp.getProduct().getPrice() * PRODUCT_NUMBER_TO_UPDATE;
+                        }
+                        // Check the storage of products in the Branch and if is lower than MIN_PRODUCTS_NUMBER,
+                        // we are filling the storage (buying products)
+                        if (product.getQuantity() < MIN_PRODUCTS_NUMBER) {
+                            product.setQuantity(product.getQuantity() + PRODUCT_NUMBER_TO_UPDATE);
+                            double priceToSubtractFromCash = product.getProduct().getPrice() * PRODUCT_NUMBER_TO_UPDATE;
                             PrimaryAccount prAcc = PrimaryAccountsManager.getPrimaryAccountByID(8);
                             String dateString = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
                             if (priceToSubtractFromCash < PrimaryAccountsManager.calcPrimaryAccount(false, prAcc, null, branch, dateString)) {
@@ -85,12 +88,10 @@ public class SaleThread implements Runnable {
                         System.out.println("Working hours for branch with name -> " + branch.getName() + " was increased by 1 because 50 euro worth of sales were made.");
                     }
 
-
-                    updatePrimaryAccounts(branch, (stockAdded-receipt_stock_price), 6); // Αποθέματα
+                    updatePrimaryAccounts(branch, (stockAdded - receipt_stock_price), 6); // Αποθέματα
                     updatePrimaryAccounts(branch, receipt_stock_price, 21); // Ημερήσιο Κόστος Πωληθέντων
                     updatePrimaryAccounts(branch, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
                     updatePrimaryAccounts(branch, receipt_final_price, 19); // Ημερήσιες Πωλήσεις
-
 
                     BranchList.update(branch);
 
