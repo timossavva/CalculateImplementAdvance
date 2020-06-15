@@ -1,3 +1,6 @@
+    Το αρχείο .jar βρίσκεται στο 
+        CalculateImplementAdvance\out\artifacts\CalculateImplementAdvance.jar
+        
     Usernames και Passwords για την είσοδο στο σύστημα:
 
     Administrator User:
