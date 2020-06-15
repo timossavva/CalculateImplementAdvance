@@ -2,6 +2,11 @@
     
         CalculateImplementAdvance\out\artifacts\CalculateImplementAdvance.jar
         
+    Προσοχή!
+    
+        Για να τρέξει σωστά το πρόγραμμα, πρέπει στον ίδιο φάκελο με το .jar να είναι 
+        και το αρχείο της βάσης δεδομένων (db.sqlite3), όπως είναι τώρα δηλαδή.
+        
     
     
     Τα Usernames και Passwords για την είσοδο στο σύστημα είναι τα εξής:
