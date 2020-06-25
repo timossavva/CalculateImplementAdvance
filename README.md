@@ -9,6 +9,10 @@
         
     
     
+   Διευκρινήσεις:
+    
+    1.  Λόγω των λογικών σφαλμάτων που εντοπίστηκαν και διορθώθηκαν
+    
     Τα Usernames και Passwords για την είσοδο στο σύστημα είναι τα εξής:
 
             Administrator User:
@@ -37,3 +41,6 @@
                 2)    
                     username: storekeeper_b   
                     password: s2
+                    
+                    
+                

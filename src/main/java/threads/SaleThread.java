@@ -48,14 +48,16 @@ public class SaleThread implements Runnable {
                 }
 
                 ArrayList<Branch> branchList = BranchList.getBranchList();
-                for (int i = 0; i < branchList.size(); i++) {
+                for (int i = 1; i < branchList.size(); i++) {
                     double stockAdded = 0;
                     Branch branch = branchList.get(i);
                     Random rand = new Random(System.currentTimeMillis());
                     BranchProduct[] arrayOfProducts = branch.getBranchProducts().toArray(new BranchProduct[0]);
                     double receipt_stock_price = 0, receipt_final_price = 0;
-                    for (int j = 0; j < arrayOfProducts.length / 2; j++) {
+                    for (int j = 0; j < arrayOfProducts.length/2; j++) {
+
                         BranchProduct product = arrayOfProducts[rand.nextInt(arrayOfProducts.length)];
+
                         int quantityToBuy = rand.nextInt(5) + 1;
                         // If we have just enough or more products, then the sale its done
                         if (product.getQuantity() >= quantityToBuy) {
@@ -69,11 +71,18 @@ public class SaleThread implements Runnable {
                         // Check the storage of products in the Branch and if is lower than MIN_PRODUCTS_NUMBER,
                         // we are filling the storage (buying products)
                         if (product.getQuantity() < MIN_PRODUCTS_NUMBER) {
-                            product.setQuantity(product.getQuantity() + PRODUCT_NUMBER_TO_UPDATE);
                             double priceToSubtractFromCash = product.getProduct().getPrice() * PRODUCT_NUMBER_TO_UPDATE;
                             PrimaryAccount prAcc = PrimaryAccountsManager.getPrimaryAccountByID(8);
                             String dateString = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-                            if (priceToSubtractFromCash < PrimaryAccountsManager.calcPrimaryAccount(false, prAcc, null, branch, dateString)) {
+
+                            double valueOfPrimAccount = PrimaryAccountsManager.calcPrimaryAccount(false, prAcc, null, branch, dateString);
+                            System.out.println("value of Prim Acc -------->>>" + valueOfPrimAccount);
+                            System.out.println("value of priceToSubtractFromCash -------->>>" + priceToSubtractFromCash);
+
+                            if (priceToSubtractFromCash < valueOfPrimAccount ) {
+                                System.out.println("value of Prim Acc -------->>>" + valueOfPrimAccount);
+                                System.out.println("value of priceToSubtractFromCash -------->>>" + priceToSubtractFromCash);
+                                product.setQuantity(product.getQuantity() + PRODUCT_NUMBER_TO_UPDATE);
                                 stockAdded += priceToSubtractFromCash;
                                 updatePrimaryAccounts(branch, -priceToSubtractFromCash, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
                             }
@@ -89,8 +98,12 @@ public class SaleThread implements Runnable {
                     }
 
                     updatePrimaryAccounts(branch, (stockAdded - receipt_stock_price), 6); // Αποθέματα
+
                     updatePrimaryAccounts(branch, receipt_stock_price, 21); // Ημερήσιο Κόστος Πωληθέντων
-                    updatePrimaryAccounts(branch, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+
+                    //updatePrimaryAccounts(branch, receipt_final_price, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+                    updatePrimaryAccounts(branch, 10000, 8); // Χρηματικά διαθέσιμα και ισοδύναμα
+
                     updatePrimaryAccounts(branch, receipt_final_price, 19); // Ημερήσιες Πωλήσεις
 
                     BranchList.update(branch);
